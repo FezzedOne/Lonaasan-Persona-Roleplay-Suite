@@ -1,0 +1,11 @@
+{
+    "persona": {
+        "name": "Persona",
+        "bannerName": "Persona - RP for you",
+        "binds": {
+            "test": {
+                "name": "Test"
+            },
+        }
+    }
+}
