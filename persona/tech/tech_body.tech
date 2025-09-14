@@ -1,0 +1,10 @@
+{
+  "name" : "personabody",
+  "type" : "body",
+  "scripts" : ["tech.lua"],
+  "animator" : "/stats/effects/ufobeamstun/ufobeamstun.animation",
+  "shortDescription" : "Persona Body",
+  "description" : "Persona Functional grabber",
+  "rarity" : "Legendary",
+  "icon" : ""
+}

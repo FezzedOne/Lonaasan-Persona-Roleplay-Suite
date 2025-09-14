@@ -18,6 +18,11 @@ end
 
 function update(dt)
 
+
+    if os.__tech then -- Check if tech is equipped
+        os.__tech.setParentState("Duck");
+    end
+
     _update(dt)
 end
 
