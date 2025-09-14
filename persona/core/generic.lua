@@ -19,7 +19,7 @@ function init(...)
 end
 
 function update(dt)
-    persona_feature_sit.sit()
+    -- persona_feature_sit.sit()
 
     _update(dt)
 end
