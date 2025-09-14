@@ -13,13 +13,13 @@ end;
 local client = "unknown"
 
 function init(...)
-    --client = persona_client.getClient() owo
+    client = persona_client.getClient()
 
     _init(...)
 end
 
 function update(dt)
-    -- persona_feature_sit.sit()
+    persona_feature_sit.sit()
 
     _update(dt)
 end
