@@ -6,13 +6,22 @@ string.persona.feature.sit = string.persona.feature.sit or {};
 
 persona_feature_sit = {}
 
+local tech
+if os.__tech then tech = os.__tech else return end
+
+local testActive
+
 ---Some description of the function
 ---@return boolean
 function persona_feature_sit.sit()
-	local tech
-	if os.__tech then tech = os.__tech else return end
+	
+	if input.bind("persona", "test") then testActive = not testActive end
 
-  os.__tech.setParentState("Sit")
+  if testActive then 
+  	os.__tech.setParentState("Sit")
+  else
+  	os.__tech.setParentState()
+  end
 end
 
 string.persona.feature.sit = persona_feature_sit
