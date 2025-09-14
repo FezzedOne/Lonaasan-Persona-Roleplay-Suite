@@ -13,7 +13,7 @@ end;
 local client = "unknown"
 
 function init(...)
-    client = persona_client.getClient()
+    --client = persona_client.getClient()
 
     _init(...)
 end
