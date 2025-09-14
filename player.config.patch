@@ -1,0 +1,22 @@
+[
+	{	
+		"op": "add",
+		"path": "/deploymentConfig/scripts/-",
+		"value": "/persona/core/deployment.lua"
+	},
+	{
+		"op": "add",
+		"path": "/statusControllerSettings/primaryScriptSources/-",
+		"value": "/persona/core/primary.lua"
+	},
+	{
+		"op": "add",
+		"path": "/companionsConfig/scripts/-",
+		"value": "/persona/core/companion.lua"
+	},
+	{
+		"op": "add",
+		"path": "/genericScriptContexts/persona",
+		"value" : "/persona/core/generic.lua"
+	}
+]
