@@ -9,9 +9,10 @@ end;
 local _uninit = uninit or function()
 end;
 
-local client = persona_client.getClient()
+local client = "unknown"
 
 function init(...)
+    client = persona_client.getClient()
 
     _init(...)
 end

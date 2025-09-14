@@ -5,7 +5,7 @@
         "binds": {
             "test": {
                 "name": "Test"
-            },
+            }
         }
     }
 }
