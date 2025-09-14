@@ -1,6 +1,7 @@
 require "/scripts/vec2.lua"
 require "/scripts/poly.lua"
 require "/persona/utils/client.lua"
+require "/persona/features/sit.lua"
 
 local _init = init or function()
 end;
@@ -18,11 +19,7 @@ function init(...)
 end
 
 function update(dt)
-
-
-    if os.__tech then -- Check if tech is equipped
-        os.__tech.setParentState("Duck");
-    end
+    persona_feature_sit.sit()
 
     _update(dt)
 end
