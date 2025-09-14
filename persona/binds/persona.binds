@@ -2,7 +2,23 @@
     "persona": {
         "name": "Persona",
         "bannerName": "Persona - RP for you",
+
+        "groups": {
+            "funcRot": { "name": "Functions - Rotate" }
+        },
+
         "binds": {
+            // rotation
+            "rotateReset": {
+                "name": "Reset Rotation",
+                "group" : "funcRot"
+            },
+            "rotateAtCursor": {
+                "name": "Rotate Player to Cursor",
+                "group" : "funcRot"
+            },
+
+            // other
             "test": {
                 "name": "Test"
             }

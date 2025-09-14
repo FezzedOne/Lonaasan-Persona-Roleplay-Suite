@@ -1,5 +1,5 @@
 ---persona sit functions
----Author: Cirup
+---Author: Aisha Heartleigh
 string.persona = string.persona or {};
 string.persona.feature = string.persona.feature or {};
 string.persona.feature.sit = string.persona.feature.sit or {};
