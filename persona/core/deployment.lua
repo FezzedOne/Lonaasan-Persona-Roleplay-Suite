@@ -5,17 +5,18 @@ end;
 local _uninit = uninit or function()
 end;
 
-function init()
+function init(...)
 
-    _init()
+    os.__localAnimator = localAnimator -- Getting localAnimator to generic for module access
+    return _init(...)
 end
 
-function update(dt)
+function update(...)
 
-    _update(dt)
+    _update(...)
 end
 
-function uninit()
+function uninit(...)
 
-    _uninit()
+    _uninit(...)
 end

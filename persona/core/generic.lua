@@ -2,6 +2,7 @@ require "/scripts/vec2.lua"
 require "/scripts/poly.lua"
 require "/persona/utils/client.lua"
 require "/persona/features/rotate.lua"
+require "/persona/features/playerLog.lua"
 
 local _init = init or function()
 end;
@@ -21,6 +22,9 @@ end
 function update(dt)
     if input.bindDown("persona", "rotateReset") then persona_feature_rotate.reset() end
     if input.bind("persona", "rotateAtCursor") then persona_feature_rotate.atCursor() end
+
+    persona_feature_playerLog.update()
+
 
     _update(dt)
 end
