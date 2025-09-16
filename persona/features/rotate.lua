@@ -25,4 +25,25 @@ function persona_feature_rotate.atCursor()
 	sb.setLogMap("^##rot31,#6FF;[Persona] Rotate_AimAtCursor_Rotation", string.format("%.3f", cursorRotation))
 end
 
+
+
+--- lerp towards rotationGoal (not implemented yet)
+--- @param float rotationGoal
+--- @param float ratio
+function persona_feature_rotate.Approach(rotationGoal, ratio)
+    local currentRotation = mcontroller.rotation()
+
+    local newRotation = currentRotation + ((rotationGoal - currentRotation) * ratio)
+    newRotation = newRotation + (newRotation<0 and -0.7 or 0.7) -- speed up for the last few degrees
+
+    if math.abs(newRotation - rotationGoal) < 2 then
+        newRotation = rotationGoal
+    end
+
+    mcontroller.setRotation(newRotation)
+end
+
+
+
+
 string.persona.feature.rotate = persona_feature_rotate
