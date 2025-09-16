@@ -4,20 +4,28 @@
         "bannerName": "Persona - RP for you",
 
         "groups": {
-            "funcRot": { "name": "Functions - Rotate" }
+            "funcRot": { "name": "Functions - Rotate" },
+            "playerUI": { "name": "PlayerUI" }
         },
 
         "binds": {
             // rotation
             "rotateReset": {
-                "name": "Reset Rotation",
+                "name": "Reset rotation",
                 "group" : "funcRot"
             },
             "rotateAtCursor": {
-                "name": "Rotate Player to Cursor",
+                "name": "Rotate player to cursor",
                 "group" : "funcRot"
             },
-
+            "playerRadar": {
+                "name": "Shows players around you",
+                "group" : "playerUI"
+            },
+            "playerInfo": {
+                "name": "Shows playerinfo at hover",
+                "group" : "playerUI"
+            },
             // other
             "test": {
                 "name": "Test"

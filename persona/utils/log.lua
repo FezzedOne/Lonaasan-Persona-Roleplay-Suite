@@ -1,4 +1,4 @@
----persona client utilities
+---persona log utilities
 ---Author: Lonaasan
 string.persona = string.persona or {};
 string.persona.log = string.persona.log or {};
