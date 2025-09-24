@@ -1,7 +1,7 @@
 {
     "persona": {
-        "name": "Persona",
-        "bannerName": "Persona - RP for you",
+        "name": "^#8d2027;P^#9e1d33;e^#b01943;r^#c21458;s^#d60e72;o^#ea0791;n^#ff00b7;a^reset;",
+        "bannerName": "^#8d2027;P^#9e1d33;e^#b01943;r^#c21458;s^#d60e72;o^#ea0791;n^#ff00b7;a^reset; - RP for you",
 
         "groups": {
             "funcRot": { "name": "Functions - Rotate" },
