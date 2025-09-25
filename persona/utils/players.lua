@@ -195,7 +195,7 @@ function persona_players.getPortrait(entityId, zoom)
     local portrait = world.entityPortrait(entityId, "full")
     local distance = persona_math.distance(playerPos, entityPos)
 
-    if not portrait then
+    if not portrait or entityId == player.id() then
         return
     end
 
@@ -211,7 +211,7 @@ function persona_players.getPortrait(entityId, zoom)
             local px = playerPos[1] + radius * math.cos(angle)
             local py = playerPos[2] + radius * math.sin(angle)
 
-            persona_localanimation.displayPortrait({px, py}, drawable.image, math.min((distance * 0.1), 1) * 2 / zoom, 0)
+            persona_localanimation.displayPortrait({px, py}, drawable.image, math.max(math.min((distance * 0.1), 1), 0.5) * 2 / zoom, 0)
         end
     end
 end
