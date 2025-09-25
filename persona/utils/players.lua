@@ -1,6 +1,5 @@
 ---persona players utilities
 ---Author: Lonaasan
-
 require '/persona/utils/localanimation.lua'
 require '/persona/utils/math.lua'
 
@@ -81,27 +80,27 @@ function persona_players.getInfo(entityId, zoom, client)
         local debugLines = {}
 
         if uuid then
-            table.insert(debugLines, "UUID: ^" .. color .. ";" .. uuid .. "^reset;")
+            table.insert(debugLines, "^shadow;UUID: ^" .. color .. ";" .. uuid .. "^reset;")
         end
         if name and name ~= "" then
-            table.insert(debugLines, "Name: ^" .. color .. ";" .. name .. "^reset;")
+            table.insert(debugLines, "^shadow;Name: ^" .. color .. ";" .. name .. "^reset;")
         end
         -- if description then
         --     table.insert(debugLines, "Description: ^" .. color .. ";" .. description .. "^reset;")
         -- end
         if entityType then
-            table.insert(debugLines, "Type: ^" .. color .. ";" .. entityType .. "^reset;")
+            table.insert(debugLines, "^shadow;Type: ^" .. color .. ";" .. entityType .. "^reset;")
         end
         if isValidTarget ~= nil then
-            table.insert(debugLines, "Is Valid Target: ^" .. (isValidTarget and "green" or "red") .. ";" ..
+            table.insert(debugLines, "^shadow;Is Valid Target: ^" .. (isValidTarget and "green" or "red") .. ";" ..
                 tostring(isValidTarget) .. "^reset;")
         end
         if isInteractive ~= nil then
-            table.insert(debugLines, "Is Interactive: ^" .. (isInteractive and "green" or "red") .. ";" ..
+            table.insert(debugLines, "^shadow;Is Interactive: ^" .. (isInteractive and "green" or "red") .. ";" ..
                 tostring(isInteractive) .. "^reset;")
         end
         if currency then
-            table.insert(debugLines, "Currency: ^" .. color .. ";" .. currency .. "^reset;")
+            table.insert(debugLines, "^shadow;Currency: ^" .. color .. ";" .. currency .. "^reset;")
         end
         -- if handItemDescriptor then
         --     table.insert(debugLines, "Hand Item Descriptor: ^" .. color .. ";" .. handItemDescriptor .. "^reset;")
@@ -109,10 +108,10 @@ function persona_players.getInfo(entityId, zoom, client)
         if distanceToEntity then
             local distanceFromVector = persona_math.distance(mcontroller.position(), pos)
             local distanceClamped = string.format("%.2f", distanceFromVector)
-            table.insert(debugLines, "Distance to Entity: ^" .. color .. ";" .. distanceClamped .. "^reset;")
+            table.insert(debugLines, "^shadow;Distance to Entity: ^" .. color .. ";" .. distanceClamped .. "^reset;")
         end
         if entityInSight ~= nil then
-            table.insert(debugLines, "Entity in Sight: ^" .. (entityInSight and "green" or "red") .. ";" ..
+            table.insert(debugLines, "^shadow;Entity in Sight: ^" .. (entityInSight and "green" or "red") .. ";" ..
                 tostring(entityInSight) .. "^reset;")
         end
         if health ~= nil then
@@ -120,27 +119,27 @@ function persona_players.getInfo(entityId, zoom, client)
             local maxHealth = health[2]
             local remainingHealthClamped = string.format("%.2f", remainingHealth)
             local maxHealthClamped = string.format("%.2f", maxHealth)
-            table.insert(debugLines,
-                "Health: ^" .. color .. ";" .. remainingHealthClamped .. " / " .. maxHealthClamped .. "^reset;")
+            table.insert(debugLines, "^shadow;Health: ^" .. color .. ";" .. remainingHealthClamped .. " / " ..
+                maxHealthClamped .. "^reset;")
         end
         if typeName and typeName ~= "" then
-            table.insert(debugLines, "Type Name: ^" .. color .. ";" .. typeName .. "^reset;")
+            table.insert(debugLines, "^shadow;Type Name: ^" .. color .. ";" .. typeName .. "^reset;")
         end
         if species and species ~= "" then
-            table.insert(debugLines, "Species: ^" .. color .. ";" .. species .. "^reset;")
+            table.insert(debugLines, "^shadow;Species: ^" .. color .. ";" .. species .. "^reset;")
         end
         if gender then
-            table.insert(debugLines, "Gender: ^" .. color .. ";" .. gender .. "^reset;")
+            table.insert(debugLines, "^shadow;Gender: ^" .. color .. ";" .. gender .. "^reset;")
         end
         if damageTeam and damageTeam.type then
-            table.insert(debugLines, "Damage Team: ^" .. color .. ";" .. damageTeam.type .. "^reset;")
+            table.insert(debugLines, "^shadow;Damage Team: ^" .. color .. ";" .. damageTeam.type .. "^reset;")
         end
         if canDamage ~= nil then
-            table.insert(debugLines,
-                "Can Damage: ^" .. (canDamage and "green" or "red") .. ";" .. tostring(canDamage) .. "^reset;")
+            table.insert(debugLines, "^shadow;Can Damage: ^" .. (canDamage and "green" or "red") .. ";" ..
+                tostring(canDamage) .. "^reset;")
         end
         if isAggressive ~= nil then
-            table.insert(debugLines, "Is Aggressive: ^" .. (isAggressive and "green" or "red") .. ";" ..
+            table.insert(debugLines, "^shadow;Is Aggressive: ^" .. (isAggressive and "green" or "red") .. ";" ..
                 tostring(isAggressive) .. "^reset;")
         end
 
@@ -173,7 +172,6 @@ function persona_players.getInfo(entityId, zoom, client)
                 local entityPos = world.entityPosition(entityId)
                 local aimPos = {aim, aim2}
 
-                -- Draw a line from the entity to the aim position
                 persona_localanimation.displayLine(aimPos, entityPos, "cyan")
             end
 
@@ -181,9 +179,8 @@ function persona_players.getInfo(entityId, zoom, client)
                 local aimPos = world.entityAimPosition(entityId)
                 local entityPos = world.entityPosition(entityId)
 
-                -- Draw a line from the entity to the aim position
                 persona_localanimation.displayLine(aimPos, entityPos, "cyan")
-                persona_localanimation.displayText({aimPos[1], aimPos[2]}, name or "", 1 / zoom)
+                persona_localanimation.displayText({aimPos[1], aimPos[2]}, "^shadow;" .. name or "", 1 / zoom)
             end
         end
     end
@@ -204,7 +201,6 @@ function persona_players.getPortrait(entityId, zoom)
 
     local radius = 20 / zoom
 
-
     local dx = entityPos[1] - playerPos[1]
     local dy = entityPos[2] - playerPos[2]
     local angle = persona_math.atan2(dy, dx)
@@ -215,16 +211,10 @@ function persona_players.getPortrait(entityId, zoom)
             local px = playerPos[1] + radius * math.cos(angle)
             local py = playerPos[2] + radius * math.sin(angle)
 
-            persona_localanimation.displayPortrait(
-                {px, py},
-                drawable.image,
-                math.min((distance * 0.1), 1) * 2 / zoom, 0
-            )
+            persona_localanimation.displayPortrait({px, py}, drawable.image, math.min((distance * 0.1), 1) * 2 / zoom, 0)
         end
     end
 end
-
-
 
 --- Export the functions for 3rd parties to use without the possibility of changing the original code
 string.persona.players = persona_players;

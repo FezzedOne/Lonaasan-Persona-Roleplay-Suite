@@ -32,9 +32,8 @@ end
 ---Check if we are running in Vanilla
 ---@return boolean
 function persona_client.isVanilla()
-    return
-        not persona_client.isNeon() and not persona_client.isStarExtensions() and not persona_client.isOpenStarbound() and
-            not persona_client.isXStarbound();
+    return not persona_client.isNeon() and not persona_client.isStarExtensions() and
+               not persona_client.isOpenStarbound() and not persona_client.isXStarbound();
 end
 
 --- Get the client object for the current environment

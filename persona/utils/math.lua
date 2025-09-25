@@ -49,6 +49,5 @@ function persona_math.angleBetween(a, b)
     return persona_math.atan2(dy, dx)
 end
 
-
 --- Export the functions for 3rd parties to use without the possibility of changing the original code
 string.persona.math = persona_math;

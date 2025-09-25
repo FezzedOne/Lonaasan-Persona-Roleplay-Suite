@@ -37,7 +37,9 @@ function persona_feature_playerLog.init()
             if not playerTable[playerId] then
                 local playerName = world.entityName(playerId) or "A person"
                 persona_log.writeCustom("*" .. playerName .. " has entered your view*")
-                playerTable[playerId] = { name = playerName }
+                playerTable[playerId] = {
+                    name = playerName
+                }
             end
         end
     end
@@ -66,7 +68,9 @@ function persona_feature_playerLog.update()
             if not playerTable[playerId] then
                 local playerName = world.entityName(playerId) or "A person"
                 persona_log.writeCustom("*" .. playerName .. " has entered your view*")
-                playerTable[playerId] = { name = playerName }
+                playerTable[playerId] = {
+                    name = playerName
+                }
             end
         end
 

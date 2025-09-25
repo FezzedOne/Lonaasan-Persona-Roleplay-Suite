@@ -29,14 +29,13 @@ end
 
 function persona_localanimation.displayImage(pos, image, layer)
     if os.__localAnimator then
-
         local drawable = {
             image = image,
             fullbright = true,
             position = pos,
-            centered = true,
+            centered = true
         }
-    os.__localAnimator.addDrawable(drawable, layer or "ForegroundEntity+10")
+        os.__localAnimator.addDrawable(drawable, layer or "ForegroundEntity+10")
     end
 end
 
