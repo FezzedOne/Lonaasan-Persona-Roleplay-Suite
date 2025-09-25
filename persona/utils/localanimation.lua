@@ -40,6 +40,21 @@ function persona_localanimation.displayImage(pos, image, layer)
     end
 end
 
+function persona_localanimation.displayText(pos, text, size)
+    if os.__localAnimator then
+        os.__localAnimator.spawnParticle({
+            type = "text",
+            fullbright = true,
+            color = {255, 255, 255},
+            layer = "front",
+            collidesForeground = false,
+            text = text or "",
+            position = pos,
+            size = (size or (2 / 3))
+        })
+    end
+end
+
 function persona_localanimation.displayLine(dest, origin, color, size, life)
     if os.__localAnimator then
         os.__localAnimator.spawnParticle({

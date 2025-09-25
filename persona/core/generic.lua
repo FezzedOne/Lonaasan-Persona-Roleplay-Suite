@@ -39,6 +39,7 @@ function update(dt)
         -- persona_localanimation.displayPortrait(world.entityPosition(player.id()),"/celestial/system/gas_giant/shadows/0.png", 0.8/zoom, 0, "middle")
         --interface.bindcanvas("personaRadar", true) UI stuff?
         persona_localanimation.displayImage({0,0},"/celestial/system/gas_giant/shadows/0.png?scalenearest=" .. 0.8/zoom)
+        persona_localanimation.displayText({mcontroller.position()[1], mcontroller.position()[2] + 28 / zoom}, "PlayerRadar" or "", 1.5 / zoom)
         for _, playerId in ipairs(playerIds) do
             persona_players.getPortrait(playerId, zoom)
         end

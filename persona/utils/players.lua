@@ -153,17 +153,7 @@ function persona_players.getInfo(entityId, zoom, client)
             -- Display a single debug text
             if #debugText > 0 then
                 -- persona_localanimation.displayLine({pos[1] - 3, pos[2] + 3}, pos, "white")
-
-                os.__localAnimator.spawnParticle({
-                    type = "text",
-                    fullbright = true,
-                    color = {255, 255, 255},
-                    layer = "front",
-                    collidesForeground = false,
-                    text = debugText or "",
-                    position = {pos[1] - 0, pos[2] + 5},
-                    size = 1 / zoom
-                })
+                persona_localanimation.displayText({pos[1] - 0, pos[2] + 5}, debugText or "", 1 / zoom)
             end
 
             -- Velocity --
@@ -193,16 +183,7 @@ function persona_players.getInfo(entityId, zoom, client)
 
                 -- Draw a line from the entity to the aim position
                 persona_localanimation.displayLine(aimPos, entityPos, "cyan")
-                os.__localAnimator.spawnParticle({
-                    type = "text",
-                    fullbright = true,
-                    color = {255, 255, 255},
-                    layer = "front",
-                    collidesForeground = false,
-                    text = name or "",
-                    position = {aimPos[1], aimPos[2]},
-                    size = 1 / zoom
-                })
+                persona_localanimation.displayText({aimPos[1], aimPos[2]}, name or "", 1 / zoom)
             end
         end
     end
