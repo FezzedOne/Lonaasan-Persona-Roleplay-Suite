@@ -33,16 +33,13 @@ function update(dt)
     end
 
     if playerRadarActive then
-        local playerIds = world.entityQuery(world.entityAimPosition(player.id()), 100, {
-            includedTypes = {"player", "npc", "monster"},
-            order = "nearest"
-        }) --persona_players.getAll()
+        local playerIds = persona_players.getAll()
+        os.__localAnimator.clearDrawables()
+        -- Maybe add like a radial circle to make the playerradar more clean? I did it anyways, looks cool!
+        -- persona_localanimation.displayPortrait(world.entityPosition(player.id()),"/celestial/system/gas_giant/shadows/0.png", 0.8/zoom, 0, "middle")
+        --interface.bindcanvas("personaRadar", true) UI stuff?
+        persona_localanimation.displayImage({0,0},"/celestial/system/gas_giant/shadows/0.png?scalenearest=" .. 0.8/zoom)
         for _, playerId in ipairs(playerIds) do
-            -- Maybe add like a radial circle to make the playerradar more clean? I did it anyways, looks cool!
-            -- persona_localanimation.displayPortrait(world.entityPosition(player.id()),"/celestial/system/gas_giant/shadows/0.png", 0.8/zoom, 0, "middle")
-            os.__localAnimator.clearDrawables()
-            --interface.bindcanvas("personaRadar", true) UI stuff?
-            persona_localanimation.displayImage({0,0},"/celestial/system/gas_giant/shadows/0.png?scalenearest=" .. 0.8/zoom)
             persona_players.getPortrait(playerId, zoom)
         end
     end
@@ -50,12 +47,11 @@ function update(dt)
     if input.bind("persona", "playerInfo") then
         if os.__localAnimator then
             local selectedEntity = world.entityQuery(world.entityAimPosition(player.id()), 100, {
-            includedTypes = {"player", "npc", "monster"},
+            includedTypes = {"player"},
             order = "nearest"
         })[1] or player.id()
 
             persona_players.getInfo(selectedEntity, zoom, client)
-            os.__localAnimator.clearDrawables()
             persona_players.getPortrait(selectedEntity, zoom)
         end
     end
