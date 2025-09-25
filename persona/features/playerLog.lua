@@ -35,9 +35,10 @@ function persona_feature_playerLog.init()
         -- Log players who have entered
         for playerId, _ in pairs(playersInSight) do
             if not playerTable[playerId] then
-                persona_log.writeCustom("*" .. world.entityName(playerId) .. " has entered your view*")
+                local playerName = world.entityName(playerId) or "A person"
+                persona_log.writeCustom("*" .. playerName .. " has entered your view*")
+                playerTable[playerId] = { name = playerName }
             end
-            playerTable[playerId] = true
         end
     end
 end
@@ -63,15 +64,17 @@ function persona_feature_playerLog.update()
         -- Log players who have entered
         for playerId, _ in pairs(playersInSight) do
             if not playerTable[playerId] then
-                persona_log.writeCustom("*" .. world.entityName(playerId) .. " has entered your view*")
+                local playerName = world.entityName(playerId) or "A person"
+                persona_log.writeCustom("*" .. playerName .. " has entered your view*")
+                playerTable[playerId] = { name = playerName }
             end
-            playerTable[playerId] = true
         end
 
         -- Log players who have left
-        for playerId, _ in pairs(playerTable) do
+        for playerId, data in pairs(playerTable) do
             if not playersInSight[playerId] then
-                persona_log.writeCustom("*" .. world.entityName(playerId) .. " has left your view*")
+                local playerName = data.name or "A person"
+                persona_log.writeCustom("*" .. playerName .. " has left your view*")
                 playerTable[playerId] = nil
             end
         end
@@ -79,8 +82,9 @@ function persona_feature_playerLog.update()
 end
 
 function persona_feature_playerLog.uninit()
-    for playerId, _ in pairs(playerTable) do
-        persona_log.writeCustom("*" .. world.entityName(playerId) .. " has left your view*")
+    for playerId, data in pairs(playerTable) do
+        local playerName = data.name or "A person"
+        persona_log.writeCustom("*" .. playerName .. " has left your view*")
     end
 end
 
