@@ -5,7 +5,7 @@ string.persona.localanimation = string.persona.localanimation or {};
 
 persona_localanimation = {}
 
-function persona_localanimation.displayPortrait(pos, image, size, life)
+function persona_localanimation.displayPortrait(pos, image, size, life, layer)
     if os.__localAnimator then
         os.__localAnimator.spawnParticle({
             type = "textured",
@@ -14,7 +14,7 @@ function persona_localanimation.displayPortrait(pos, image, size, life)
             fullbright = true,
 
             timeToLive = life or 0,
-            layer = "front",
+            layer = layer or "front",
             size = size or 16,
             color = {255, 255, 255},
 
@@ -24,6 +24,19 @@ function persona_localanimation.displayPortrait(pos, image, size, life)
                 position = {0, 0}
             }
         })
+    end
+end
+
+function persona_localanimation.displayImage(pos, image, layer)
+    if os.__localAnimator then
+
+        local drawable = {
+            image = image,
+            fullbright = true,
+            position = pos,
+            centered = true,
+        }
+    os.__localAnimator.addDrawable(drawable, layer or "ForegroundEntity+10")
     end
 end
 

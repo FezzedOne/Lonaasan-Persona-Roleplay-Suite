@@ -4,6 +4,8 @@ require "/persona/utils/client.lua"
 require "/persona/utils/players.lua"
 require "/persona/features/rotate.lua"
 require "/persona/features/playerLog.lua"
+require "/persona/utils/math.lua"
+require "/persona/utils/localanimation.lua"
 
 local _init = init or function()
 end;
@@ -31,8 +33,16 @@ function update(dt)
     end
 
     if playerRadarActive then
-        local playerIds = persona_players.getAll()
+        local playerIds = world.entityQuery(world.entityAimPosition(player.id()), 100, {
+            includedTypes = {"player", "npc", "monster"},
+            order = "nearest"
+        }) --persona_players.getAll()
         for _, playerId in ipairs(playerIds) do
+            -- Maybe add like a radial circle to make the playerradar more clean? I did it anyways, looks cool!
+            -- persona_localanimation.displayPortrait(world.entityPosition(player.id()),"/celestial/system/gas_giant/shadows/0.png", 0.8/zoom, 0, "middle")
+            os.__localAnimator.clearDrawables()
+            --interface.bindcanvas("personaRadar", true) UI stuff?
+            persona_localanimation.displayImage({0,0},"/celestial/system/gas_giant/shadows/0.png?scalenearest=" .. 0.8/zoom)
             persona_players.getPortrait(playerId, zoom)
         end
     end
