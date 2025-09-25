@@ -40,7 +40,7 @@ function update(dt)
     if input.bind("persona", "playerInfo") then
         if os.__localAnimator then
             local selectedEntity = world.entityQuery(world.entityAimPosition(player.id()), 100, {
-            includedTypes = {"player"},
+            includedTypes = {"player", "npc", "monster"},
             order = "nearest"
         })[1] or player.id()
 
