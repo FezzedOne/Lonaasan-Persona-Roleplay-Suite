@@ -5,6 +5,7 @@
 
         "groups": {
             "funcRot": { "name": "Functions - Rotate" },
+            "funcEmo": { "name": "Functions - Emote" },
             "playerUI": { "name": "PlayerUI" }
         },
 
@@ -18,8 +19,12 @@
                 "name": "Rotate player to cursor",
                 "group" : "funcRot"
             },
+            "stickymotes": {
+                "name": "Toggle Stickymotes",
+                "group" : "funcEmo"
+            },
             "playerRadar": {
-                "name": "Shows players around you",
+                "name": "Toggle Playerradar",
                 "group" : "playerUI"
             },
             "playerInfo": {

@@ -17,6 +17,7 @@ end;
 local client = "unknown"
 local selfId = 0
 local playerRadarActive = false
+local stickymotesActive = false
 
 function init(...)
     client = persona_client.getClient()
@@ -37,6 +38,9 @@ function update(dt)
     if input.bindDown("persona", "playerRadar") then
         playerRadarActive = not playerRadarActive
     end
+    if input.bindDown("persona", "stickymotes") then
+        stickymotesActive = not stickymotesActive
+    end
 
     if playerRadarActive then
         if os.__localAnimator then
@@ -54,6 +58,12 @@ function update(dt)
                 persona_players.getPortrait(playerId, zoom)
             end
         end
+    end
+
+    if stickymotesActive then
+        persona_feature_stickymotes.update()
+    else
+        persona_feature_stickymotes.reset()
     end
 
     if input.bind("persona", "playerInfo") then
