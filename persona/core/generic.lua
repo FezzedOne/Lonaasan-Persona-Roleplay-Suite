@@ -4,6 +4,7 @@ require "/persona/utils/client.lua"
 require "/persona/utils/players.lua"
 require "/persona/features/rotate.lua"
 require "/persona/features/playerLog.lua"
+require "/persona/features/stickymotes.lua"
 require "/persona/utils/math.lua"
 require "/persona/utils/localanimation.lua"
 
