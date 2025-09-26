@@ -53,3 +53,5 @@ function persona_feature_stickymotes.update()
 
     lastEmote = emote -- Remember emote next update
 end
+
+string.persona.feature.stickymotes = persona_feature_stickymotes
