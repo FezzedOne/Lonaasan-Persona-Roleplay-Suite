@@ -22,8 +22,7 @@ Persona is an RP (Roleplay) enhancement mod for Starbound, providing advanced pl
 - **Player TP** - Enhanced teleportation between players
 - **Particle FX** - Visual effects for roleplaying scenarios
 
-#### Character Control
-
+- ### Character Control
 - **Character Poses**
   - Sitting positions
   - Character resizing
