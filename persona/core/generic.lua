@@ -15,10 +15,12 @@ local _uninit = uninit or function()
 end;
 
 local client = "unknown"
+local selfId = 0
 local playerRadarActive = false
 
 function init(...)
     client = persona_client.getClient()
+    selfId = player.id()
 
     _init(...)
 end
@@ -45,8 +47,8 @@ function update(dt)
             -- interface.bindcanvas("personaRadar", true) UI stuff?
 
             persona_localanimation.displayImage({0, 0},
-                "/celestial/system/gas_giant/shadows/0.png?scalenearest=" .. 0.8 / zoom)
-            persona_localanimation.displayText({mcontroller.position()[1], mcontroller.position()[2] + 28 / zoom},
+                "/celestial/system/gas_giant/shadows/0.png", 0.8 / zoom)
+            persona_localanimation.displayText(vec2.add(mcontroller.position(), {0, 28 / zoom}),
                 "^shadow;PlayerRadar^reset;" or "", 1.5 / zoom)
             for _, playerId in ipairs(playerIds) do
                 persona_players.getPortrait(playerId, zoom)
@@ -56,10 +58,10 @@ function update(dt)
 
     if input.bind("persona", "playerInfo") then
         if os.__localAnimator then
-            local selectedEntity = world.entityQuery(world.entityAimPosition(player.id()), 100, {
+            local selectedEntity = world.entityQuery(world.entityAimPosition(selfId), 100, {
                 includedTypes = {"player"},
                 order = "nearest"
-            })[1] or player.id()
+            })[1] or selfId
 
             persona_players.getInfo(selectedEntity, zoom, client)
             persona_players.getPortrait(selectedEntity, zoom)
