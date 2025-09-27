@@ -40,6 +40,7 @@ function update(dt)
         playerRadarActive = not playerRadarActive
     end
     if input.bindDown("persona", "stickymotes") then
+        persona_feature_stickymotes.reset()
         stickymotesActive = not stickymotesActive
     end
 
@@ -63,8 +64,6 @@ function update(dt)
 
     if stickymotesActive then
         persona_feature_stickymotes.update()
-    else
-        persona_feature_stickymotes.reset()
     end
 
     if input.bind("persona", "playerInfo") then
