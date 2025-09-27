@@ -23,7 +23,7 @@ local stickymotesActive = false
 function init(...)
     client = persona_client.getClient()
     selfId = player.id()
-
+    persona_feature_playerLog.init()
     _init(...)
 end
 
@@ -83,6 +83,6 @@ function update(dt)
 end
 
 function uninit(...)
-
+    persona_feature_playerLog.uninit()
     _uninit(...)
 end
