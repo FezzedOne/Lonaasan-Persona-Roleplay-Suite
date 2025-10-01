@@ -43,10 +43,12 @@ function persona_client.getClient()
         return "Neon";
     elseif persona_client.isStarExtensions() then
         return "StarExtensions";
+    elseif persona_client.isXStarbound() then
+        -- reverse order to circumvent XStarbound's disguise as OpenStarbound.
+        -- This way we check for xSB features, which are not in oSB.
+        return "XStarbound";
     elseif persona_client.isOpenStarbound() then
         return "OpenStarbound";
-    elseif persona_client.isXStarbound() then
-        return "XStarbound";
     else
         return "Vanilla";
     end
