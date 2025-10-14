@@ -8,6 +8,7 @@ require "/persona/features/stickymotes.lua"
 require "/persona/utils/math.lua"
 require "/persona/utils/localanimation.lua"
 require "/persona/features/position.lua"
+require "/persona/features/size.lua"
 
 local _init = init or function()
 end;
@@ -38,6 +39,13 @@ function update(dt)
     if input.bind("persona", "rotateAtCursor") then
         persona_feature_rotate.atCursor()
     end
+    if input.bind("persona", "resizeReset") then
+        persona_feature_size.reset()
+    end
+    if input.bind("persona", "resizeToCursor") then
+        persona_feature_size.toCursor()
+    end
+
     if input.bindDown("persona", "stickToEntity") then
         stickToEntityActive = not stickToEntityActive
 
@@ -87,6 +95,8 @@ function update(dt)
             persona_players.getPortrait(selectedEntity, zoom)
         end
     end
+
+    persona_feature_size.update()
 
     persona_feature_playerLog.update()
     _update(dt)

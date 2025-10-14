@@ -5,7 +5,7 @@
 
         "groups": {
             "funcPos": { "name": "Functions - Position" },
-            "funcEmo": { "name": "Functions - Emote" },
+            "funcVis": { "name": "Functions - Visual" },
             "playerUI": { "name": "PlayerUI" }
         },
 
@@ -20,12 +20,20 @@
                 "group" : "funcPos"
             },
             "stickToEntity": {
-                "name": "Stick to nearest entity",
+                "name": "Stick to entity",
                 "group" : "funcPos"
             },
             "stickymotes": {
                 "name": "Toggle Stickymotes",
-                "group" : "funcEmo"
+                "group" : "funcVis"
+            },
+            "resizeReset": {
+                "name": "Reset size",
+                "group" : "funcVis"
+            },
+            "resizeToCursor": {
+                "name": "Resize to cursor",
+                "group" : "funcVis"
             },
             "playerRadar": {
                 "name": "Toggle Playerradar",

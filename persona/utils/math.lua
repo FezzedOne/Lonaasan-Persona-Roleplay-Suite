@@ -49,5 +49,17 @@ function persona_math.angleBetween(a, b)
     return persona_math.atan2(dy, dx)
 end
 
+--- Scales a polygon by a factor
+--- @param poly table
+--- @param factor number
+--- @return table
+function persona_math.scalePoly(poly, factor)
+    local scaledPoly = {}
+    for i, point in ipairs(poly) do
+        scaledPoly[i] = {point[1] * factor, point[2] * factor}
+    end
+    return scaledPoly
+end
+
 --- Export the functions for 3rd parties to use without the possibility of changing the original code
 string.persona.math = persona_math;
