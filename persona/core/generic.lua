@@ -7,6 +7,7 @@ require "/persona/features/playerLog.lua"
 require "/persona/features/stickymotes.lua"
 require "/persona/utils/math.lua"
 require "/persona/utils/localanimation.lua"
+require "/persona/features/position.lua"
 
 local _init = init or function()
 end;
@@ -19,6 +20,7 @@ local client = "unknown"
 local selfId = 0
 local playerRadarActive = false
 local stickymotesActive = false
+local stickToEntityActive = false
 
 function init(...)
     client = persona_client.getClient()
@@ -36,6 +38,13 @@ function update(dt)
     if input.bind("persona", "rotateAtCursor") then
         persona_feature_rotate.atCursor()
     end
+    if input.bindDown("persona", "stickToEntity") then
+        stickToEntityActive = not stickToEntityActive
+
+        if not stickToEntityActive then
+            persona_feature_position.reset()
+        end
+    end
     if input.bindDown("persona", "playerRadar") then
         playerRadarActive = not playerRadarActive
     end
@@ -44,13 +53,14 @@ function update(dt)
         stickymotesActive = not stickymotesActive
     end
 
+    if stickToEntityActive then
+        persona_feature_position.stickToEntity()
+    end
+
     if playerRadarActive then
         if os.__localAnimator then
             local playerIds = persona_players.getAll()
             os.__localAnimator.clearDrawables()
-            -- Maybe add like a radial circle to make the playerradar more clean? I did it anyways, looks cool!
-            -- persona_localanimation.displayPortrait(world.entityPosition(player.id()),"/celestial/system/gas_giant/shadows/0.png", 0.8/zoom, 0, "middle")
-            -- interface.bindcanvas("personaRadar", true) UI stuff?
 
             persona_localanimation.displayImage({0, 0},
                 "/celestial/system/gas_giant/shadows/0.png", 0.8 / zoom)

@@ -4,7 +4,7 @@
         "bannerName": "^#8d2027;P^#9e1d33;e^#b01943;r^#c21458;s^#d60e72;o^#ea0791;n^#ff00b7;a^reset; - RP for you",
 
         "groups": {
-            "funcRot": { "name": "Functions - Rotate" },
+            "funcPos": { "name": "Functions - Position" },
             "funcEmo": { "name": "Functions - Emote" },
             "playerUI": { "name": "PlayerUI" }
         },
@@ -13,11 +13,15 @@
             // rotation
             "rotateReset": {
                 "name": "Reset rotation",
-                "group" : "funcRot"
+                "group" : "funcPos"
             },
             "rotateAtCursor": {
-                "name": "Rotate player to cursor",
-                "group" : "funcRot"
+                "name": "Rotate to cursor",
+                "group" : "funcPos"
+            },
+            "stickToEntity": {
+                "name": "Stick to nearest entity",
+                "group" : "funcPos"
             },
             "stickymotes": {
                 "name": "Toggle Stickymotes",
