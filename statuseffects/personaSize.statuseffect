@@ -1,0 +1,6 @@
+{
+  "name" : "personaSize",
+  "effectConfig" : {},
+  "defaultDuration" : 9999999,
+  "scripts" : ["personaSize.lua"]
+}
