@@ -30,6 +30,7 @@ function persona_feature_position.stickToEntity()
     local targetPos = world.entityPosition(stickyTarget)
     if targetPos then
         mcontroller.setPosition(vec2.add(targetPos, stickyOffset))
+        mcontroller.setVelocity({0, 0})
     else
         stickyTarget = nil
         stickyOffset = {0, 0}
