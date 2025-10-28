@@ -30,11 +30,13 @@ function persona_feature_fastSelect.show(options, zoom)
 
     if distanceToCursor < 25.5 / zoom and distanceToCursor > 0.5 / zoom then
         fastSelectOption = math.floor((cursorRotation / (math.pi * 2)) * #storedOptions) + 1
-        -- Ensure fastSelectOption is within valid range
-        if fastSelectOption > #storedOptions then
-            fastSelectOption = 1
-        end
     end
+    
+    -- Ensure fastSelectOption is within valid range
+    if fastSelectOption > #storedOptions then
+        fastSelectOption = 1
+    end
+
 
     -- show the center image relative to (player - select location)
     persona_localanimation.displayImage(world.distance(fastSelectLocation, mcontroller.position()),
