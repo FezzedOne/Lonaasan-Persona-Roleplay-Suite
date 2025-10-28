@@ -211,7 +211,7 @@ function persona_players.getPortrait(entityId, zoom)
             local px = radius * math.cos(angle)
             local py = radius * math.sin(angle)
 
-            persona_localanimation.displayImage({px, py}, drawable.image, math.max(math.min((distance * 0.1), 1), 0.5) * 2 / zoom, "ForegroundEntity+10")
+            persona_localanimation.displayImage({px, py}, drawable.image, math.max(math.min((distance * 0.1), 1), 0.5) * 2 / zoom)
         end
     end
 end

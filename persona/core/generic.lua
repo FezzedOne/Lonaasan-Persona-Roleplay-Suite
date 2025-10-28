@@ -9,6 +9,7 @@ require "/persona/utils/math.lua"
 require "/persona/utils/localanimation.lua"
 require "/persona/features/position.lua"
 require "/persona/features/size.lua"
+require "/persona/features/fastSelect.lua"
 
 local _init = init or function()
 end;
@@ -19,9 +20,12 @@ end;
 
 local client = "unknown"
 local selfId = 0
+local fastSelectActive = false
+local lastFastSelectState = false
 local playerRadarActive = false
 local stickymotesActive = false
 local stickToEntityActive = false
+local options = {"sit", "wave", "dance", "cheer", "point", "laugh"}
 
 function init(...)
     client = persona_client.getClient()
@@ -30,7 +34,11 @@ function init(...)
     _init(...)
 end
 
-function update(dt)
+function update(dt, ...)
+    
+    if os.__localAnimator then
+        os.__localAnimator.clearDrawables()
+    end
     local zoom = root.getConfigurationPath("zoomLevel") or 2
 
     if input.bindDown("persona", "rotateReset") then
@@ -61,14 +69,26 @@ function update(dt)
         stickymotesActive = not stickymotesActive
     end
 
-    if stickToEntityActive then
-        persona_feature_position.stickToEntity()
+    fastSelectActive = false
+    if input.bind("persona", "fastSelect") then
+        fastSelectActive = true
+        persona_feature_fastSelect.show(options, zoom)
     end
+
+    if input.bindDown("persona", "fastSelectAdd") then
+        table.insert(options, "test_" .. #options + 1)
+    end
+
+    if not fastSelectActive and lastFastSelectState then
+        persona_feature_fastSelect.select()
+        options = {"sit", "wave", "dance", "cheer", "point", "laugh"}
+    end
+
+    lastFastSelectState = fastSelectActive
 
     if playerRadarActive then
         if os.__localAnimator then
             local playerIds = persona_players.getAll()
-            os.__localAnimator.clearDrawables()
 
             persona_localanimation.displayImage({0, 0},
                 "/celestial/system/gas_giant/shadows/0.png", 0.8 / zoom)
@@ -78,10 +98,6 @@ function update(dt)
                 persona_players.getPortrait(playerId, zoom)
             end
         end
-    end
-
-    if stickymotesActive then
-        persona_feature_stickymotes.update()
     end
 
     if input.bind("persona", "playerInfo") then
@@ -94,6 +110,14 @@ function update(dt)
             persona_players.getInfo(selectedEntity, zoom, client)
             persona_players.getPortrait(selectedEntity, zoom)
         end
+    end
+
+    if stickToEntityActive then
+        persona_feature_position.stickToEntity()
+    end
+
+    if stickymotesActive then
+        persona_feature_stickymotes.update()
     end
 
     persona_feature_size.update()

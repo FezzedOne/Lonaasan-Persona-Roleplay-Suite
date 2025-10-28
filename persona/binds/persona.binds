@@ -35,6 +35,14 @@
                 "name": "Resize to cursor",
                 "group" : "funcVis"
             },
+            "fastSelectAdd": {
+                "name": "Add FastSelect Option",
+                "group" : "playerUI"
+            },
+            "fastSelect": {
+                "name": "Show FastSelect",
+                "group" : "playerUI"
+            },
             "playerRadar": {
                 "name": "Toggle Playerradar",
                 "group" : "playerUI"

@@ -27,14 +27,15 @@ function persona_localanimation.displayPortrait(pos, image, size, life, layer)
     end
 end
 
-function persona_localanimation.displayImage(pos, image, size, layer)
+function persona_localanimation.displayImage(pos, image, size, color, layer)
     if os.__localAnimator then
         local drawable = {
             image = image,
             fullbright = true,
             position = pos,
             centered = true,
-            scale = size or {1, 1}
+            scale = size or {1, 1},
+            color = color or {255, 255, 255}
         }
         os.__localAnimator.addDrawable(drawable, layer or "ForegroundEntity+10")
     end
