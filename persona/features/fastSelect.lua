@@ -28,7 +28,7 @@ function persona_feature_fastSelect.show(options, zoom)
         cursorRotation = cursorRotation + (math.pi * 2)
     end
 
-    if distanceToCursor < 25.5 / zoom and distanceToCursor > 0.5 / zoom then
+    if distanceToCursor < 16 / zoom and distanceToCursor > 0.5 / zoom then
         fastSelectOption = math.floor((cursorRotation / (math.pi * 2)) * #storedOptions) + 1
     end
     
@@ -40,22 +40,22 @@ function persona_feature_fastSelect.show(options, zoom)
 
     -- show the center image relative to (player - select location)
     persona_localanimation.displayImage(world.distance(fastSelectLocation, mcontroller.position()),
-        "/celestial/system/terrestrial/biomes/midnight/maskie2.png", 0.8 / zoom, {255, 255, 255, 200})
+        "/celestial/system/terrestrial/biomes/midnight/maskie2.png", 0.5 / zoom, {255, 255, 255, 200})
     persona_localanimation.displayImage(world.distance(fastSelectLocation, mcontroller.position()),
-        "/celestial/system/gas_giant/shadows/0.png", 0.8 / zoom)
+        "/celestial/system/gas_giant/shadows/0.png", 0.5 / zoom)
 
 
         --"/celestial/system/gas_giant/shadows/0.png", "/cinematics/crazyring.png", "/celestial/system/terrestrial/biomes/midnight/maskie2.png"
 
-    persona_localanimation.displayText(vec2.add(fastSelectLocation, {0, 28 / zoom}),
-        "^shadow;FastSelect " .. storedOptions[fastSelectOption] .. "^reset;" or "", 1.5 / zoom)
+    persona_localanimation.displayText(vec2.add(fastSelectLocation, {0, 17.5 / zoom}),
+        "^shadow;FastSelect " .. storedOptions[fastSelectOption] .. "^reset;" or "", 1.25 / zoom)
 
     -- Draw the border lines inbetween options based on option count
 
     for i = 0, #storedOptions - 1 do
         local angle = (i / #storedOptions) * (math.pi * 2)
         local lineEnd = vec2.add(fastSelectLocation,
-            vec2.mul(vec2.norm({math.cos(angle), math.sin(angle)}), 25.5 / zoom))
+            vec2.mul(vec2.norm({math.cos(angle), math.sin(angle)}), 16 / zoom))
         persona_localanimation.displayLine(fastSelectLocation, lineEnd, "gray", 1.0 / zoom)
     end
 
@@ -64,7 +64,7 @@ function persona_feature_fastSelect.show(options, zoom)
         if i ~= fastSelectOption then
             local textAngle = (((i - 1) + 0.5) / #storedOptions) * (math.pi * 2)
             local textPosition = vec2.add(fastSelectLocation,
-                vec2.mul(vec2.norm({math.cos(textAngle), math.sin(textAngle)}), 17 / zoom))
+                vec2.mul(vec2.norm({math.cos(textAngle), math.sin(textAngle)}), 10.7 / zoom))
             persona_localanimation.displayText(textPosition,
                 storedOptions[i] or "", 1.0 / zoom)
         end
@@ -75,8 +75,8 @@ function persona_feature_fastSelect.show(options, zoom)
     local selectedAngleStart = ((fastSelectOption - 1) / #storedOptions) * (math.pi * 2)
     local selectedAngleEnd = (fastSelectOption / #storedOptions) * (math.pi * 2)
 
-    local startPoint = vec2.add(fastSelectLocation, vec2.mul(vec2.norm({math.cos(selectedAngleStart), math.sin(selectedAngleStart)}), 25.5 / zoom))
-    local endPoint = vec2.add(fastSelectLocation, vec2.mul(vec2.norm({math.cos(selectedAngleEnd), math.sin(selectedAngleEnd)}), 25.5 / zoom))
+    local startPoint = vec2.add(fastSelectLocation, vec2.mul(vec2.norm({math.cos(selectedAngleStart), math.sin(selectedAngleStart)}), 16 / zoom))
+    local endPoint = vec2.add(fastSelectLocation, vec2.mul(vec2.norm({math.cos(selectedAngleEnd), math.sin(selectedAngleEnd)}), 16 / zoom))
 
     persona_localanimation.displayLine(fastSelectLocation, startPoint, "red", 2.0 / zoom)
     persona_localanimation.displayLine(fastSelectLocation, endPoint, "red", 2.0 / zoom)
@@ -84,7 +84,7 @@ function persona_feature_fastSelect.show(options, zoom)
     -- draw the selected option text in bold and red
     local selectedTextAngle = (((fastSelectOption - 1) + 0.5) / #storedOptions) * (math.pi * 2)
     local selectedTextPosition = vec2.add(fastSelectLocation,
-        vec2.mul(vec2.norm({math.cos(selectedTextAngle), math.sin(selectedTextAngle)}), 17 / zoom))
+        vec2.mul(vec2.norm({math.cos(selectedTextAngle), math.sin(selectedTextAngle)}), 10.7 / zoom))
     persona_localanimation.displayText(selectedTextPosition,
         "^red;" .. storedOptions[fastSelectOption] .. "^reset;", 1.2 / zoom)
 end
