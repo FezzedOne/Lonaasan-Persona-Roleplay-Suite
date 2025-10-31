@@ -1,5 +1,5 @@
 ---persona position functions
----Author: Lonaasan
+---Author: Lonaasan & Aisha Heartleigh
 string.persona = string.persona or {};
 string.persona.feature = string.persona.feature or {};
 string.persona.feature.position = string.persona.feature.position or {};
@@ -29,8 +29,22 @@ function persona_feature_position.stickToEntity()
     end
     local targetPos = world.entityPosition(stickyTarget)
     if targetPos then
+        -- move offset through arrow keys
+        local moveBinds = root.getConfigurationPath("bindings") -- finds your binds!
+        local movement = {(input.keyHeld(moveBinds.PlayerLeft[1].value) and -0.05) or
+            (input.keyHeld(moveBinds.PlayerRight[1].value) and 0.05) or 0,
+                          (input.keyHeld(moveBinds.PlayerDown[1].value) and -0.05) or
+            (input.keyHeld(moveBinds.PlayerUp[1].value) and 0.05) or 0}
+        stickyOffset = vec2.add(stickyOffset, movement)
+
+        -- move offset through mouse
+        if input.mouseHeld("MouseMiddle") then
+            stickyOffset = vec2.lerp(0.01, stickyOffset,
+                world.distance(player.aimPosition(), world.entityPosition(stickyTarget)))
+        end
+
         mcontroller.setPosition(vec2.add(targetPos, stickyOffset))
-        mcontroller.setVelocity({0, 0})
+        mcontroller.controlApproachVelocity({0, 0}, 1e+6)
     else
         stickyTarget = nil
         stickyOffset = {0, 0}
