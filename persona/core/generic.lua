@@ -25,7 +25,13 @@ local lastFastSelectState = false
 local playerRadarActive = false
 local stickymotesActive = false
 local stickToEntityActive = false
-local options = {"sit", "wave", "dance", "cheer", "point", "laugh"}
+local emoteOptions = {"idle", "happy", "sad", "neutral", "laugh", "annoyed", "oh", "oooh", "wink", "sleep" }
+local otherOptions = {"sit", "wave", "dance", "cheer", "point", "sleep"}
+local wheelOptions = {}
+local optionTables = {emoteOptions, otherOptions} -- Add more tables here as needed
+local currentTableIndex = 1
+local lastShiftState = false
+
 
 function init(...)
     client = persona_client.getClient()
@@ -35,7 +41,7 @@ function init(...)
 end
 
 function update(dt, ...)
-    
+
     if os.__localAnimator then
         os.__localAnimator.clearDrawables()
     end
@@ -69,19 +75,42 @@ function update(dt, ...)
         stickymotesActive = not stickymotesActive
     end
 
+    local shift = input.key("RShift") or input.key("LShift")
+    
     fastSelectActive = false
     if input.bind("persona", "fastSelect") then
         fastSelectActive = true
-        persona_feature_fastSelect.show(options, zoom)
+        wheelOptions = optionTables[currentTableIndex]
+        persona_feature_fastSelect.show(wheelOptions, zoom)
     end
+    
+    -- Cycle through option tables when shift is pressed (not held) and fast select is active
+    if fastSelectActive and shift and not lastShiftState then
+        currentTableIndex = currentTableIndex + 1
+        if currentTableIndex > #optionTables then
+            currentTableIndex = 1
+        end
+        -- Update the wheel with the new options immediately
+        wheelOptions = optionTables[currentTableIndex]
+        persona_feature_fastSelect.show(wheelOptions, zoom)
+    end
+    lastShiftState = shift
 
     if input.bindDown("persona", "fastSelectAdd") then
-        table.insert(options, "test_" .. #options + 1)
+        table.insert(otherOptions, "test_" .. #otherOptions + 1)
     end
 
     if not fastSelectActive and lastFastSelectState then
-        persona_feature_fastSelect.select()
-        options = {"sit", "wave", "dance", "cheer", "point", "laugh"}
+        local result = persona_feature_fastSelect.select()
+        if result then
+            if contains(emoteOptions, result) then
+                player.emote(result)
+                sb.logInfo("Selected emote: %s", result)
+            elseif contains(otherOptions, result) then
+                sb.logInfo("Selected other option: %s", result)
+            end
+        end
+        otherOptions = {"sit", "wave", "dance", "cheer", "point", "laugh"}
     end
 
     lastFastSelectState = fastSelectActive
