@@ -5,13 +5,14 @@ string.persona.feature = string.persona.feature or {};
 string.persona.feature.size = string.persona.feature.size or {};
 
 require "/persona/utils/math.lua"
+require '/persona/utils/localanimation.lua'
 
 persona_feature_size = {}
 
 local playerSize = 0
 
 --- Resizes the character to the size at the cursor position
-function persona_feature_size.toCursor()
+function persona_feature_size.toCursor(zoom, shift)
     local cursorPositionRelativeToPlayer = world.distance(player.aimPosition(), mcontroller.position())
 
     local size = math.abs(cursorPositionRelativeToPlayer[2]) / 5
@@ -22,8 +23,16 @@ function persona_feature_size.toCursor()
         size = 6
     end
 
+    -- If shift is pressed, snap to 0.1 increments
+    if shift then
+        size = math.floor(size / 0.1 + 0.5) * 0.1  -- Round to nearest 0.1
+    end
+
     playerSize = size
     status.setStatusProperty("personaSize", size)
+
+    persona_localanimation.displayText(vec2.add(mcontroller.position(), {0, 28 / zoom}),
+        string.format("^shadow;Size: %.1f^reset;", playerSize), 1.5 / zoom)
 end
 
 function persona_feature_size.update()

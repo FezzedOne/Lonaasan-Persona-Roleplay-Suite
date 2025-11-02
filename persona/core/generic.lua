@@ -46,18 +46,19 @@ function update(dt, ...)
         os.__localAnimator.clearDrawables()
     end
     local zoom = root.getConfigurationPath("zoomLevel") or 2
+    local shift = input.key("RShift") or input.key("LShift")
 
     if input.bindDown("persona", "rotateReset") then
         persona_feature_rotate.reset()
     end
     if input.bind("persona", "rotateAtCursor") then
-        persona_feature_rotate.atCursor()
+        persona_feature_rotate.atCursor(zoom, shift)
     end
     if input.bind("persona", "resizeReset") then
         persona_feature_size.reset()
     end
     if input.bind("persona", "resizeToCursor") then
-        persona_feature_size.toCursor()
+        persona_feature_size.toCursor(zoom, shift)
     end
 
     if input.bindDown("persona", "stickToEntity") then
@@ -75,9 +76,6 @@ function update(dt, ...)
         stickymotesActive = not stickymotesActive
     end
 
-    local shift = input.key("RShift") or input.key("LShift")
-    
-    fastSelectActive = false
     if input.bind("persona", "fastSelect") then
         fastSelectActive = true
         wheelOptions = optionTables[currentTableIndex]
@@ -94,7 +92,6 @@ function update(dt, ...)
         wheelOptions = optionTables[currentTableIndex]
         persona_feature_fastSelect.show(wheelOptions, zoom)
     end
-    lastShiftState = shift
 
     if input.bindDown("persona", "fastSelectAdd") then
         table.insert(wheelOptions, "test_" .. #wheelOptions + 1)
@@ -111,8 +108,6 @@ function update(dt, ...)
             end
         end
     end
-
-    lastFastSelectState = fastSelectActive
 
     if playerRadarActive then
         if os.__localAnimator then
@@ -151,6 +146,11 @@ function update(dt, ...)
     persona_feature_size.update()
 
     persona_feature_playerLog.update()
+
+
+    fastSelectActive = false
+    lastShiftState = shift
+    lastFastSelectState = fastSelectActive
     _update(dt)
 end
 
