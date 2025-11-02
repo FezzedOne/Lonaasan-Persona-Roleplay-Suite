@@ -32,7 +32,7 @@ function persona_feature_size.toCursor(zoom, shift)
     status.setStatusProperty("personaSize", size)
 
     persona_localanimation.displayText(vec2.add(mcontroller.position(), {0, 28 / zoom}),
-        string.format("^shadow;Size: %.2f cm | %.2f inch^reset;", playerSize * 4 * 45, playerSize * 4 * 45 / 2.54), 1.5 / zoom)
+        string.format("^shadow;Size: %.2f^reset;", playerSize), 1.5 / zoom)
 end
 
 function persona_feature_size.update()
