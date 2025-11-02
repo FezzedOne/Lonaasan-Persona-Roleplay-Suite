@@ -75,13 +75,14 @@ function update(dt, ...)
         persona_feature_stickymotes.reset()
         stickymotesActive = not stickymotesActive
     end
-
+    
+    fastSelectActive = false
     if input.bind("persona", "fastSelect") then
         fastSelectActive = true
         wheelOptions = optionTables[currentTableIndex]
         persona_feature_fastSelect.show(wheelOptions, zoom)
     end
-    
+
     -- Cycle through option tables when shift is pressed (not held) and fast select is active
     if fastSelectActive and shift and not lastShiftState then
         currentTableIndex = currentTableIndex + 1
@@ -96,6 +97,7 @@ function update(dt, ...)
     if input.bindDown("persona", "fastSelectAdd") then
         table.insert(wheelOptions, "test_" .. #wheelOptions + 1)
     end
+    lastShiftState = shift
 
     if not fastSelectActive and lastFastSelectState then
         local result = persona_feature_fastSelect.select()
@@ -108,6 +110,7 @@ function update(dt, ...)
             end
         end
     end
+    lastFastSelectState = fastSelectActive
 
     if playerRadarActive then
         if os.__localAnimator then
@@ -147,10 +150,6 @@ function update(dt, ...)
 
     persona_feature_playerLog.update()
 
-
-    fastSelectActive = false
-    lastShiftState = shift
-    lastFastSelectState = fastSelectActive
     _update(dt)
 end
 
