@@ -25,7 +25,7 @@ function persona_feature_size.toCursor(zoom, shift)
 
     -- If shift is pressed, snap to 0.1 increments
     if shift then
-        size = math.floor(size / 0.1 + 0.5) * 0.1  -- Round to nearest 0.1
+        size = math.floor(size / 0.1 + 0.5) * 0.1 -- Round to nearest 0.1
     end
 
     playerSize = size

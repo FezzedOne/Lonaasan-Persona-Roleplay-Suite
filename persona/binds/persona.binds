@@ -23,6 +23,10 @@
                 "name": "Stick to entity",
                 "group" : "funcPos"
             },
+            "flight": {
+                "name": "Flight",
+                "group" : "funcPos"
+            },
             "stickymotes": {
                 "name": "Toggle Stickymotes",
                 "group" : "funcVis"

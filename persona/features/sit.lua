@@ -19,7 +19,7 @@ local testActive
 ---@return boolean
 function persona_feature_sit.sit()
 
-    if input.bind("persona", "test") then
+    if input.bindDown("persona", "test") then
         testActive = not testActive
     end
 

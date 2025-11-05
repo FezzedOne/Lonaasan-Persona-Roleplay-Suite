@@ -51,6 +51,28 @@ function persona_feature_position.stickToEntity()
     end
 end
 
+function persona_feature_position.flight(shift)
+    mcontroller.controlParameters({
+        gravityEnabled = false
+    })
+
+    if (shift) then
+        mcontroller.controlApproachVelocity(vec2.mul(world.distance(player.aimPosition(), mcontroller.position()), 8),
+            300)
+        mcontroller.controlParameters({
+            collisionEnabled = false
+        }) -- phase through walls
+    else
+        local moveBinds = root.getConfigurationPath("bindings") -- finds your binds!
+        local movement = {(input.keyHeld(moveBinds.PlayerLeft[1].value) and -0.05) or
+            (input.keyHeld(moveBinds.PlayerRight[1].value) and 0.05) or 0,
+                          (input.keyHeld(moveBinds.PlayerDown[1].value) and -0.05) or
+            (input.keyHeld(moveBinds.PlayerUp[1].value) and 0.05) or 0}
+
+        mcontroller.controlApproachVelocity(vec2.mul(movement, 60), 300)
+    end
+end
+
 function persona_feature_position.reset()
     stickyTarget = nil
     stickyOffset = {0, 0}

@@ -10,6 +10,7 @@ require "/persona/utils/localanimation.lua"
 require "/persona/features/position.lua"
 require "/persona/features/size.lua"
 require "/persona/features/fastSelect.lua"
+require "/persona/features/sit.lua"
 
 local _init = init or function()
 end;
@@ -25,13 +26,13 @@ local lastFastSelectState = false
 local playerRadarActive = false
 local stickymotesActive = false
 local stickToEntityActive = false
-local emoteOptions = {"idle", "happy", "sad", "neutral", "laugh", "annoyed", "oh", "oooh", "wink", "sleep" }
+local flightActive = false
+local emoteOptions = {"idle", "happy", "sad", "neutral", "laugh", "annoyed", "oh", "oooh", "wink", "sleep"}
 local otherOptions = {"sit", "wave", "dance", "cheer", "point", "lay"}
 local wheelOptions = {}
 local optionTables = {emoteOptions, otherOptions} -- Add more tables here as needed
 local currentTableIndex = 1
 local lastShiftState = false
-
 
 function init(...)
     client = persona_client.getClient()
@@ -68,6 +69,16 @@ function update(dt, ...)
             persona_feature_position.reset()
         end
     end
+
+    if input.bindDown("persona", "flight") then
+        flightActive = not flightActive
+        if not flightActive then
+            mcontroller.controlParameters({
+                gravityEnabled = true
+            })
+        end
+    end
+
     if input.bindDown("persona", "playerRadar") then
         playerRadarActive = not playerRadarActive
     end
@@ -75,7 +86,7 @@ function update(dt, ...)
         persona_feature_stickymotes.reset()
         stickymotesActive = not stickymotesActive
     end
-    
+
     fastSelectActive = false
     if input.bind("persona", "fastSelect") then
         fastSelectActive = true
@@ -116,8 +127,7 @@ function update(dt, ...)
         if os.__localAnimator then
             local playerIds = persona_players.getAll()
 
-            persona_localanimation.displayImage({0, 0},
-                "/celestial/system/gas_giant/shadows/0.png", 0.8 / zoom)
+            persona_localanimation.displayImage({0, 0}, "/celestial/system/gas_giant/shadows/0.png", 0.8 / zoom)
             persona_localanimation.displayText(vec2.add(mcontroller.position(), {0, 28 / zoom}),
                 "^shadow;PlayerRadar^reset;" or "", 1.5 / zoom)
             for _, playerId in ipairs(playerIds) do
@@ -138,6 +148,10 @@ function update(dt, ...)
         end
     end
 
+    if flightActive then
+        persona_feature_position.flight(shift)
+    end
+
     if stickToEntityActive then
         persona_feature_position.stickToEntity()
     end
@@ -149,6 +163,8 @@ function update(dt, ...)
     persona_feature_size.update()
 
     persona_feature_playerLog.update()
+
+    persona_feature_sit.sit()
 
     _update(dt)
 end

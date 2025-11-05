@@ -22,7 +22,7 @@ function persona_feature_rotate.atCursor(zoom, shift)
     -- If shift is pressed, snap to 10-degree increments
     if shift then
         local degrees = math.deg(cursorRotation)
-        degrees = math.floor(degrees / 10 + 0.5) * 10  -- Round to nearest 10 degrees
+        degrees = math.floor(degrees / 10 + 0.5) * 10 -- Round to nearest 10 degrees
         cursorRotation = math.rad(degrees)
     end
 
