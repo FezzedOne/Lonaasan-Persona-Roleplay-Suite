@@ -8,6 +8,7 @@ persona_feature_position = {}
 
 local stickyTarget = nil
 local stickyOffset = {0, 0}
+local altControlsEnabled = false
 
 --- Sticks the player to the nearest entity (NPC, monster, player, etc.)
 function persona_feature_position.stickToEntity()
@@ -51,17 +52,19 @@ function persona_feature_position.stickToEntity()
     end
 end
 
-function persona_feature_position.flight(shift)
+function persona_feature_position.flight(shift, alt)
+
     mcontroller.controlParameters({
         gravityEnabled = false
     })
 
-    if (shift) then
+    if alt then
+        altControlsEnabled = not altControlsEnabled
+    end
+
+    if altControlsEnabled then
         mcontroller.controlApproachVelocity(vec2.mul(world.distance(player.aimPosition(), mcontroller.position()), 8),
             300)
-        mcontroller.controlParameters({
-            collisionEnabled = false
-        }) -- phase through walls
     else
         local moveBinds = root.getConfigurationPath("bindings") -- finds your binds!
         local movement = {(input.keyHeld(moveBinds.PlayerLeft[1].value) and -0.05) or
@@ -70,6 +73,12 @@ function persona_feature_position.flight(shift)
             (input.keyHeld(moveBinds.PlayerUp[1].value) and 0.05) or 0}
 
         mcontroller.controlApproachVelocity(vec2.mul(movement, 60), 300)
+    end
+
+    if (shift) then
+        mcontroller.controlParameters({
+            collisionEnabled = false
+        }) -- phase through walls
     end
 end
 

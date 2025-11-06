@@ -38,6 +38,7 @@ local CONSTANTS = {
 
 -- State variables
 local state = {
+    selectInitialCursorPosition = {0, 0},
     selectLocation = {0, 0},
     selectedOption = 1,
     options = {}
@@ -156,9 +157,11 @@ function persona_feature_fastSelect.show(options, zoom)
     state.options = options or {}
 
     -- Initialize select location if not set
-    if state.selectLocation[1] == 0 and state.selectLocation[2] == 0 then
-        state.selectLocation = player.aimPosition()
+    -- change code so wheel selection is the offset from player position to aim position
+    if state.selectInitialCursorPosition[1] == 0 and state.selectInitialCursorPosition[2] == 0 then
+        state.selectInitialCursorPosition = world.distance(player.aimPosition(), mcontroller.position())
     end
+    state.selectLocation = vec2.add(mcontroller.position(), state.selectInitialCursorPosition)
 
     -- Calculate cursor position and distance
     local cursorOffset = world.distance(player.aimPosition(), state.selectLocation)
@@ -187,6 +190,7 @@ end
 
 function persona_feature_fastSelect.select()
     state.selectLocation = {0, 0}
+    state.selectInitialCursorPosition = {0, 0}
 
     if state.selectedOption == 0 then
         sb.logInfo("Exited fast select menu without selecting an option.")

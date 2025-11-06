@@ -48,6 +48,7 @@ function update(dt, ...)
     end
     local zoom = root.getConfigurationPath("zoomLevel") or 2
     local shift = input.key("RShift") or input.key("LShift")
+    local alt = input.keyDown("RAlt") or input.keyDown("LAlt")
 
     if input.bindDown("persona", "rotateReset") then
         persona_feature_rotate.reset()
@@ -149,7 +150,7 @@ function update(dt, ...)
     end
 
     if flightActive then
-        persona_feature_position.flight(shift)
+        persona_feature_position.flight(shift, alt)
     end
 
     if stickToEntityActive then
