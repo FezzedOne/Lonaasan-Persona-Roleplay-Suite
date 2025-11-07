@@ -21,9 +21,8 @@ function persona_feature_stickymotes.update()
     local emote, time = player.currentEmote()
 
     if emote == "Blabbering" -- Do nothing with emotes the game may trigger itself (Blabbering/Shouting, Eat, Blink)
-     or emote == "Shouting" -- you'd have to unstick these each time the game triggers them otherwise
-     or emote == "Eat"
-    then 
+    or emote == "Shouting" -- you'd have to unstick these each time the game triggers them otherwise
+    or emote == "Eat" then
         lastEmote = emote
         return -- Skip the entire rest of the script, let the emote play out normally
 
@@ -44,10 +43,10 @@ function persona_feature_stickymotes.update()
 
         end
 
-    -- time <= 2 would break emotes on loungeables, such as beds, and I REALLY need to write down why
+        -- time <= 2 would break emotes on loungeables, such as beds, and I REALLY need to write down why
     elseif time < resetTime -- Current emote has less than resetTime seconds on timer (or was retriggered!)
-     and time ~= 1.9833333492279053 -- SCC's afk
-    then 
+    and time ~= 1.9833333492279053 -- SCC's afk
+    then
         player.emote("Idle", 0) -- Go back to Idle emote
     end
 

@@ -10,7 +10,6 @@ require "/persona/utils/localanimation.lua"
 require "/persona/features/position.lua"
 require "/persona/features/size.lua"
 require "/persona/features/fastSelect.lua"
-require "/persona/features/sit.lua"
 
 local _init = init or function()
 end;
@@ -27,10 +26,86 @@ local playerRadarActive = false
 local stickymotesActive = false
 local stickToEntityActive = false
 local flightActive = false
-local emoteOptions = {"idle", "happy", "sad", "neutral", "laugh", "annoyed", "oh", "oooh", "wink", "sleep"}
-local otherOptions = {"sit", "wave", "dance", "cheer", "point", "lay"}
+local emoteOptions = {{
+    execute = "idle",
+    description = "Idle"
+}, {
+    execute = "happy",
+    description = "Happy"
+}, {
+    execute = "sad",
+    description = "Sad"
+}, {
+    execute = "neutral",
+    description = "Neutral"
+}, {
+    execute = "laugh",
+    description = "Laugh"
+}, {
+    execute = "annoyed",
+    description = "Annoyed"
+}, {
+    execute = "oh",
+    description = "Oh"
+}, {
+    execute = "oooh",
+    description = "Oooh"
+}, {
+    execute = "wink",
+    description = "Wink"
+}, {
+    execute = "sleep",
+    description = "Sleep"
+}}
+local danceOptions1 = {{
+    execute = "wave",
+    description = "Wave"
+}, {
+    execute = "warmhands",
+    description = "Warming"
+}, {
+    execute = "typing",
+    description = "Typing"
+}, {
+    execute = "steer",
+    description = "Steer"
+}, {
+    execute = "sell",
+    description = "Sell"
+}, {
+    execute = "punch",
+    description = "Punch"
+}, {
+    execute = "pressbutton",
+    description = "Press"
+}, {
+    execute = "panic",
+    description = "Panic"
+}, {
+    execute = "drink",
+    description = "Drink"
+}, {
+    execute = "comfort",
+    description = "Comfort"
+}}
+local danceOptions2 = {{
+    execute = "posedance",
+    description = "Pose Dance"
+}, {
+    execute = "hylotldance",
+    description = "Hylotl Dance"
+}, {
+    execute = "armswingdance",
+    description = "Arm Swing"
+}, {
+    execute = "titanic",
+    description = "Titanic"
+}, {
+    execute = "postmail",
+    description = "Post Mail"
+}}
 local wheelOptions = {}
-local optionTables = {emoteOptions, otherOptions} -- Add more tables here as needed
+local optionTables = {emoteOptions, danceOptions1, danceOptions2} -- Add more tables here as needed
 local currentTableIndex = 1
 local lastShiftState = false
 
@@ -38,6 +113,7 @@ function init(...)
     client = persona_client.getClient()
     selfId = player.id()
     persona_feature_playerLog.init()
+    player.emote("Idle", 0)
     _init(...)
 end
 
@@ -115,10 +191,19 @@ function update(dt, ...)
         local result = persona_feature_fastSelect.select()
         if result then
             if currentTableIndex == 1 then
-                player.emote(result)
-                sb.logInfo("Selected emote: %s", result)
-            elseif currentTableIndex == 2 and contains(otherOptions, result) then
-                sb.logInfo("Selected other option: %s", result)
+                local emote, time = player.currentEmote()
+                if emote:lower() == result.execute then
+                    player.emote("Idle", 0)
+                    sb.logInfo("Cleared emote: %s", result.description)
+                    return
+                else
+                    player.emote(result.execute)
+                    sb.logInfo("Selected emote: %s", result.description)
+                end
+            elseif (currentTableIndex == 2 and contains(danceOptions1, result)) or
+                (currentTableIndex == 3 and contains(danceOptions2, result)) then
+                player.dance(result.execute)
+                sb.logInfo("Selected dance: %s", result.description)
             end
         end
     end
@@ -165,7 +250,9 @@ function update(dt, ...)
 
     persona_feature_playerLog.update()
 
-    persona_feature_sit.sit()
+    if input.bindDown("persona", "test") then
+        player.dance("wave")
+    end
 
     _update(dt)
 end

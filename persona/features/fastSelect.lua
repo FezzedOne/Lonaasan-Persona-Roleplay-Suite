@@ -84,7 +84,7 @@ local function drawCenterElements(zoom)
 end
 
 local function drawHeaderText(zoom)
-    local headerText = state.selectedOption > 0 and state.options[state.selectedOption] or "back"
+    local headerText = state.selectedOption > 0 and state.options[state.selectedOption].description or "back"
     local headerPosition = vec2.add(state.selectLocation, {0, CONSTANTS.HEADER_OFFSET / zoom})
 
     persona_localanimation.displayText(headerPosition, "^shadow;FastSelect " .. headerText .. "^reset;",
@@ -108,7 +108,8 @@ local function drawUnselectedOptions(zoom)
             local textAngle = getTextAngleForOption(i, #state.options)
             local textPosition = getPositionAtDistance(state.selectLocation, textAngle, CONSTANTS.TEXT_RADIUS / zoom)
 
-            persona_localanimation.displayText(textPosition, state.options[i] or "", CONSTANTS.TEXT_SCALES.NORMAL / zoom)
+            persona_localanimation.displayText(textPosition, state.options[i].description or "",
+                CONSTANTS.TEXT_SCALES.NORMAL / zoom)
         end
     end
 end
@@ -141,7 +142,7 @@ local function drawSelectedOption(zoom)
         state.selectedOption = #state.options
     end
     persona_localanimation.displayText(selectedTextPosition, "^" .. CONSTANTS.COLORS.SELECTED .. ";" ..
-        state.options[state.selectedOption] .. "^reset;", CONSTANTS.TEXT_SCALES.SELECTED / zoom)
+        state.options[state.selectedOption].description .. "^reset;", CONSTANTS.TEXT_SCALES.SELECTED / zoom)
 end
 
 local function drawCenterText(distanceToCursor, zoom)
@@ -197,9 +198,19 @@ function persona_feature_fastSelect.select()
         state.options = {}
         return nil
     end
+    if #state.options == 0 then
+        sb.logInfo("No options available to select in fast select menu.")
+        return nil
+    end
+
+    if state.selectedOption > #state.options then
+        sb.logInfo("No valid option selected in fast select menu.")
+        state.options = {}
+        return nil
+    end
 
     local selectedOption = state.options[state.selectedOption]
-    sb.logInfo("Selected option " .. selectedOption .. " in fast select menu.")
+    sb.logInfo("Selected option " .. selectedOption.description .. " in fast select menu.")
     state.options = {}
     return selectedOption
 end
