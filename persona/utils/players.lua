@@ -59,6 +59,8 @@ function persona_players.getInfo(entityId, zoom, client)
         local currency
 
         if client == "OpenStarbound" then
+            if os.__entity then
+                
             entity = world.entity(entityId)
             -- local description = entity:description() or nil
             isInteractive = entity:isInteractive() or nil
@@ -66,6 +68,7 @@ function persona_players.getInfo(entityId, zoom, client)
             -- local handItemDescriptor = entity:handItemDescriptor("primary") or nil
 
             -- sb.logInfo("%s", handItemDescriptor)
+            end
         end
 
         -------------- Vectors --------------
