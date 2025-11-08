@@ -59,7 +59,7 @@ function persona_players.getInfo(entityId, zoom, client)
         local currency
 
         if client == "OpenStarbound" then
-            if os.__entity then
+            if os.__entity and world.entity then
                 
             entity = world.entity(entityId)
             -- local description = entity:description() or nil
