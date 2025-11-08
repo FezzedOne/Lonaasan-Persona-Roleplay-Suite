@@ -17,7 +17,6 @@ function persona_feature_sit.sit()
     end
 
     if testActive then
-        player.setDance("sit")
     end
 end
 

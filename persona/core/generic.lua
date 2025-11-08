@@ -59,6 +59,38 @@ local emoteOptions = {{
     description = "Sleep"
 }}
 
+local stateOptions = {{
+    name = "Stand",
+    description = "Stand"
+}, {
+    name = "Fly",
+    description = "Fly"
+}, {
+    name = "Fall",
+    description = "Fall"
+}, {
+    name = "Sit",
+    description = "Sit"
+}, {
+    name = "Lay",
+    description = "Lay"
+}, {
+    name = "Duck",
+    description = "Duck"
+}, {
+    name = "Walk",
+    description = "Walk"
+}, {
+    name = "Run",
+    description = "Run"
+}, {
+    name = "Swim",
+    description = "Swim"
+}, {
+    name = nil,
+    description = "Reset"
+}}
+
 local danceOptions1 = {{
     name = "wave",
     description = "Wave",
@@ -141,12 +173,20 @@ local wheelOptions = {}
 local optionTables = {emoteOptions, danceOptions1, danceOptions2} -- Add more tables here as needed
 local currentTableIndex = 1
 local lastShiftState = false
+local lastparentState = nil
 
 function init(...)
     client = persona_client.getClient()
     selfId = player.id()
     persona_feature_playerLog.init()
     player.emote("Idle", 0)
+
+    if not status.statusProperty("personaIgnored", false) and
+        player.equippedTech("body") ~= "personabody" and player.equippedTech("legs") ~= "personalegs" and
+            player.equippedTech("head") ~= "personahead" then
+        player.interact("ScriptPane", "/interface/persona/techEquip/techEquip.config")
+    end
+
     _init(...)
 end
 
@@ -155,16 +195,22 @@ function update(dt, ...)
     if os.__localAnimator then
         os.__localAnimator.clearDrawables()
     end
+
+    if os.__tech then
+        optionTables = {emoteOptions, stateOptions, danceOptions1, danceOptions2} -- Update option tables if tech is present
+    end
+
     local zoom = root.getConfigurationPath("zoomLevel") or 2
     local shift = input.key("RShift") or input.key("LShift")
+    local shiftDown = input.keyDown("RShift") or input.keyDown("LShift")
     local alt = input.keyDown("RAlt") or input.keyDown("LAlt")
 
     if input.bindDown("persona", "rotateReset") then
-        -- persona_feature_dance.exit()
+        persona_feature_dance.exit()
         persona_feature_rotate.reset()
     end
     if input.bind("persona", "rotateAtCursor") then
-        -- persona_feature_dance.exit()
+        persona_feature_dance.exit()
         persona_feature_rotate.atCursor(zoom, shift)
     end
     if input.bind("persona", "resizeReset") then
@@ -227,20 +273,23 @@ function update(dt, ...)
     if not fastSelectActive and lastFastSelectState then
         local result = persona_feature_fastSelect.select()
         if result then
-            if currentTableIndex == 1 then
-                local emote, time = player.currentEmote()
-                if emote:lower() == result.name then
-                    player.emote("Idle", 0)
-                    sb.logInfo("Cleared emote: %s", result.description)
-                    return
-                else
-                    player.emote(result.name)
-                    sb.logInfo("Selected emote: %s", result.description)
-                end
-            elseif (currentTableIndex == 2 and contains(danceOptions1, result)) or
-                (currentTableIndex == 3 and contains(danceOptions2, result)) then
+            if contains(emoteOptions, result) then
+                player.emote(result.name)
+                sb.logInfo("Selected emote: %s", result.description)
+            elseif contains(danceOptions1, result) or contains(danceOptions2, result) then
                 persona_feature_dance.dance(result)
                 sb.logInfo("Selected dance: %s", result.description)
+            elseif contains(stateOptions, result) then
+                local state = result.name or nil
+                if os.__tech then
+                    if not state or lastparentState == state then
+                       state = nil
+                    end
+                    sb.logInfo("Setting state to: %s, last: %s", tostring(state), tostring(lastparentState))
+                    os.__tech.setParentState(state)
+                end
+                sb.logInfo("Selected state: %s", result.description)
+                lastparentState = state
             end
         end
     end
@@ -272,7 +321,7 @@ function update(dt, ...)
     end
 
     if flightActive then
-        persona_feature_position.flight(shift, alt)
+        persona_feature_position.flight(shiftDown, alt)
     end
 
     if stickToEntityActive then
@@ -288,8 +337,6 @@ function update(dt, ...)
     persona_feature_playerLog.update()
 
     if input.bindDown("persona", "test") then
-        player.interact("ScriptPane", "/interface/persona/techEquip/techEquip.config")
-        player.dance("wave")
     end
 
     _update(dt)
