@@ -1,3 +1,5 @@
+---persona size statuseffect
+---Author: Lonaasan
 local oldSize = 1
 
 function init()

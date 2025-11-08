@@ -10,6 +10,7 @@ require "/persona/utils/localanimation.lua"
 require "/persona/features/position.lua"
 require "/persona/features/size.lua"
 require "/persona/features/fastSelect.lua"
+require "/persona/features/dance.lua"
 
 local _init = init or function()
 end;
@@ -27,82 +28,114 @@ local stickymotesActive = false
 local stickToEntityActive = false
 local flightActive = false
 local emoteOptions = {{
-    execute = "idle",
+    name = "idle",
     description = "Idle"
 }, {
-    execute = "happy",
+    name = "happy",
     description = "Happy"
 }, {
-    execute = "sad",
+    name = "sad",
     description = "Sad"
 }, {
-    execute = "neutral",
+    name = "neutral",
     description = "Neutral"
 }, {
-    execute = "laugh",
+    name = "laugh",
     description = "Laugh"
 }, {
-    execute = "annoyed",
+    name = "annoyed",
     description = "Annoyed"
 }, {
-    execute = "oh",
+    name = "oh",
     description = "Oh"
 }, {
-    execute = "oooh",
+    name = "oooh",
     description = "Oooh"
 }, {
-    execute = "wink",
+    name = "wink",
     description = "Wink"
 }, {
-    execute = "sleep",
+    name = "sleep",
     description = "Sleep"
 }}
+
 local danceOptions1 = {{
-    execute = "wave",
-    description = "Wave"
+    name = "wave",
+    description = "Wave",
+    cyclic = false,
+    duration = 0.75,
+    steps = 8
 }, {
-    execute = "warmhands",
-    description = "Warming"
+    name = "warmhands",
+    description = "Warming",
+    cyclic = true
 }, {
-    execute = "typing",
-    description = "Typing"
+    name = "typing",
+    description = "Typing",
+    cyclic = true
 }, {
-    execute = "steer",
-    description = "Steer"
+    name = "steer",
+    description = "Steer",
+    cyclic = true
 }, {
-    execute = "sell",
-    description = "Sell"
+    name = "sell",
+    description = "Sell",
+    cyclic = false,
+    duration = 1,
+    steps = 7
 }, {
-    execute = "punch",
-    description = "Punch"
+    name = "punch",
+    description = "Punch",
+    cyclic = false,
+    duration = 0.5,
+    steps = 4
 }, {
-    execute = "pressbutton",
-    description = "Press"
+    name = "pressbutton",
+    description = "Press",
+    cyclic = false,
+    duration = 0.5,
+    steps = 4
 }, {
-    execute = "panic",
-    description = "Panic"
+    name = "panic",
+    description = "Panic",
+    cyclic = true
 }, {
-    execute = "drink",
-    description = "Drink"
+    name = "drink",
+    description = "Drink",
+    cyclic = true
 }, {
-    execute = "comfort",
-    description = "Comfort"
+    name = "comfort",
+    description = "Comfort",
+    cyclic = false,
+    duration = 3.5,
+    steps = 15
 }}
 local danceOptions2 = {{
-    execute = "posedance",
-    description = "Pose Dance"
+    name = "posedance",
+    description = "Pose Dance",
+    cyclic = true
 }, {
-    execute = "hylotldance",
-    description = "Hylotl Dance"
+    name = "hylotldance",
+    description = "Hylotl Dance",
+    cyclic = true
 }, {
-    execute = "armswingdance",
-    description = "Arm Swing"
+    name = "armswingdance",
+    description = "Arm Swing",
+    cyclic = true
 }, {
-    execute = "titanic",
-    description = "Titanic"
+    name = "titanic",
+    description = "Titanic",
+    cyclic = true
 }, {
-    execute = "postmail",
-    description = "Post Mail"
+    name = "postmail",
+    description = "Post Mail",
+    cyclic = false,
+    duration = 1,
+    steps = 8
+}, {
+    name = "wiggledance",
+    description = "Wiggle Dance",
+    cyclic = true
 }}
 local wheelOptions = {}
 local optionTables = {emoteOptions, danceOptions1, danceOptions2} -- Add more tables here as needed
@@ -127,15 +160,19 @@ function update(dt, ...)
     local alt = input.keyDown("RAlt") or input.keyDown("LAlt")
 
     if input.bindDown("persona", "rotateReset") then
+        -- persona_feature_dance.exit()
         persona_feature_rotate.reset()
     end
     if input.bind("persona", "rotateAtCursor") then
+        -- persona_feature_dance.exit()
         persona_feature_rotate.atCursor(zoom, shift)
     end
     if input.bind("persona", "resizeReset") then
+        persona_feature_dance.exit()
         persona_feature_size.reset()
     end
     if input.bind("persona", "resizeToCursor") then
+        persona_feature_dance.exit()
         persona_feature_size.toCursor(zoom, shift)
     end
 
@@ -192,17 +229,17 @@ function update(dt, ...)
         if result then
             if currentTableIndex == 1 then
                 local emote, time = player.currentEmote()
-                if emote:lower() == result.execute then
+                if emote:lower() == result.name then
                     player.emote("Idle", 0)
                     sb.logInfo("Cleared emote: %s", result.description)
                     return
                 else
-                    player.emote(result.execute)
+                    player.emote(result.name)
                     sb.logInfo("Selected emote: %s", result.description)
                 end
             elseif (currentTableIndex == 2 and contains(danceOptions1, result)) or
                 (currentTableIndex == 3 and contains(danceOptions2, result)) then
-                player.dance(result.execute)
+                persona_feature_dance.dance(result)
                 sb.logInfo("Selected dance: %s", result.description)
             end
         end
