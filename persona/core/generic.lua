@@ -11,6 +11,7 @@ require "/persona/features/position.lua"
 require "/persona/features/size.lua"
 require "/persona/features/fastSelect.lua"
 require "/persona/features/dance.lua"
+require "/persona/utils/log.lua"
 
 local _init = init or function()
 end;
@@ -19,14 +20,21 @@ end;
 local _uninit = uninit or function()
 end;
 
-local client = "unknown"
-local selfId = 0
+-- key triggers
 local fastSelectActive = false
 local lastFastSelectState = false
 local playerRadarActive = false
 local stickymotesActive = false
 local stickToEntityActive = false
 local flightActive = false
+
+-- variables
+local client = "unknown"
+local selfId = 0
+local lastShiftState = false
+local lastParentState = nil
+
+-- fastwheel options (export to json later)
 local emoteOptions = {{
     name = "idle",
     description = "Idle"
@@ -172,8 +180,6 @@ local danceOptions2 = {{
 local wheelOptions = {}
 local optionTables = {emoteOptions, danceOptions1, danceOptions2} -- Add more tables here as needed
 local currentTableIndex = 1
-local lastShiftState = false
-local lastparentState = nil
 
 function init(...)
     client = persona_client.getClient()
@@ -280,12 +286,12 @@ function update(dt, ...)
             elseif contains(stateOptions, result) then
                 local state = result.name or nil
                 if os.__tech then
-                    if not state or lastparentState == state then
+                    if not state or lastParentState == state then
                        state = nil
                     end
                     os.__tech.setParentState(state)
                 end
-                lastparentState = state
+                lastParentState = state
             end
         end
     end

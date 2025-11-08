@@ -198,12 +198,12 @@ function persona_feature_fastSelect.select()
         return nil
     end
     if #state.options == 0 then
-        sb.logInfo("No options available to select in fast select menu.")
+        persona_log.writeCustom("No options available to select in fast select menu.")
         return nil
     end
 
     if state.selectedOption > #state.options then
-        sb.logInfo("No valid option selected in fast select menu.")
+        persona_log.writeCustom("No valid option selected in fast select menu.")
         state.options = {}
         return nil
     end

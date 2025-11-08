@@ -2,6 +2,7 @@
 ---Author: Lonaasan
 require '/persona/utils/localanimation.lua'
 require '/persona/utils/math.lua'
+require '/persona/utils/log.lua'
 
 string.persona = string.persona or {};
 string.persona.players = string.persona.players or {};
@@ -20,7 +21,7 @@ function persona_players.getInfo(entityId, zoom, client)
 
     local isExisting = world.entityExists(entityId)
     if not isExisting then
-        sb.logInfo("Entity with ID " .. entityId .. " does not exist.")
+        persona_log.writeCustom("Entity with ID " .. entityId .. " does not exist.")
         return
     end
 
@@ -67,7 +68,7 @@ function persona_players.getInfo(entityId, zoom, client)
             currency = entity:currency("money") or nil
             -- local handItemDescriptor = entity:handItemDescriptor("primary") or nil
 
-            -- sb.logInfo("%s", handItemDescriptor)
+            -- persona_log.writeCustom("%s", handItemDescriptor)
             end
         end
 
