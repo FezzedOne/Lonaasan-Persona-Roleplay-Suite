@@ -194,7 +194,6 @@ function persona_feature_fastSelect.select()
     state.selectInitialCursorPosition = {0, 0}
 
     if state.selectedOption == 0 then
-        sb.logInfo("Exited fast select menu without selecting an option.")
         state.options = {}
         return nil
     end
@@ -210,7 +209,6 @@ function persona_feature_fastSelect.select()
     end
 
     local selectedOption = state.options[state.selectedOption]
-    sb.logInfo("Selected option " .. selectedOption.description .. " in fast select menu.")
     state.options = {}
     return selectedOption
 end

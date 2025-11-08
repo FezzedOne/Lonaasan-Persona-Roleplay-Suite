@@ -6,7 +6,8 @@
         "groups": {
             "funcPos": { "name": "Functions - Position" },
             "funcVis": { "name": "Functions - Visual" },
-            "playerUI": { "name": "PlayerUI" }
+            "playerUI": { "name": "PlayerUI" },
+            "controlKeys": { "name": "Control Keys - Overrides" }
         },
 
         "binds": {
@@ -39,10 +40,6 @@
                 "name": "Resize to cursor",
                 "group" : "funcVis"
             },
-            "fastSelectAdd": {
-                "name": "Add FastSelect Option",
-                "group" : "playerUI"
-            },
             "fastSelect": {
                 "name": "Show FastSelect",
                 "group" : "playerUI"
@@ -55,9 +52,44 @@
                 "name": "Shows playerinfo at hover",
                 "group" : "playerUI"
             },
-            // other
-            "test": {
-                "name": "Test"
+            "shiftOverride": {
+                "name": "Shift Override",
+                "group": "controlKeys",
+                "default": [{
+                    "type": "key",
+                    "value": "LShift",
+                    "mods": []
+                }, {
+                    "type": "key",
+                    "value": "RShift",
+                    "mods": []
+                }]
+            },
+            "altOverride": {
+                "name": "Flight Controls Override",
+                "group": "controlKeys",
+                "default": [{
+                    "type": "key",
+                    "value": "LAlt",
+                    "mods": []
+                }, {
+                    "type": "key",
+                    "value": "RAlt",
+                    "mods": []
+                }]
+            },
+            "shiftHoldOverride": {
+                "name": "Flight Collision Override",
+                "group": "controlKeys",
+                "default": [{
+                    "type": "key",
+                    "value": "LShift",
+                    "mods": []
+                }, {
+                    "type": "key",
+                    "value": "RShift",
+                    "mods": []
+                }]
             }
         }
     }

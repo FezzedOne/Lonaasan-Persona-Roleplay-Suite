@@ -201,9 +201,9 @@ function update(dt, ...)
     end
 
     local zoom = root.getConfigurationPath("zoomLevel") or 2
-    local shift = input.key("RShift") or input.key("LShift")
-    local shiftDown = input.keyDown("RShift") or input.keyDown("LShift")
-    local alt = input.keyDown("RAlt") or input.keyDown("LAlt")
+    local shift = input.bind("persona", "shiftOverride") --input.key("RShift") or input.key("LShift")
+    local shiftDown = input.bindDown("persona", "shiftHoldOverride") --input.keyDown("RShift") or input.keyDown("LShift")
+    local alt = input.bind("persona", "altOverride") --input.keyDown("RAlt") or input.keyDown("LAlt")
 
     if input.bindDown("persona", "rotateReset") then
         persona_feature_dance.exit()
@@ -275,20 +275,16 @@ function update(dt, ...)
         if result then
             if contains(emoteOptions, result) then
                 player.emote(result.name)
-                sb.logInfo("Selected emote: %s", result.description)
             elseif contains(danceOptions1, result) or contains(danceOptions2, result) then
                 persona_feature_dance.dance(result)
-                sb.logInfo("Selected dance: %s", result.description)
             elseif contains(stateOptions, result) then
                 local state = result.name or nil
                 if os.__tech then
                     if not state or lastparentState == state then
                        state = nil
                     end
-                    sb.logInfo("Setting state to: %s, last: %s", tostring(state), tostring(lastparentState))
                     os.__tech.setParentState(state)
                 end
-                sb.logInfo("Selected state: %s", result.description)
                 lastparentState = state
             end
         end
