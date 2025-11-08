@@ -36,7 +36,8 @@ function persona_feature_size.toCursor(zoom, shift)
 end
 
 function persona_feature_size.update()
-    if playerSize == 0 then
+    local effects = status.activeUniqueStatusEffectSummary()
+    if playerSize == 0 or not effects["personaSize"] then
         playerSize = status.statusProperty("personaSize", 1) or 1
         status.addEphemeralEffect("personaSize", math.huge)
     end

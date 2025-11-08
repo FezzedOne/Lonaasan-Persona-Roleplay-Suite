@@ -209,7 +209,7 @@ function update(dt, ...)
     local zoom = root.getConfigurationPath("zoomLevel") or 2
     local shift = input.bind("persona", "shiftOverride") --input.key("RShift") or input.key("LShift")
     local shiftDown = input.bindDown("persona", "shiftHoldOverride") --input.keyDown("RShift") or input.keyDown("LShift")
-    local alt = input.bind("persona", "altOverride") --input.keyDown("RAlt") or input.keyDown("LAlt")
+    local alt = input.bindDown("persona", "altOverride") --input.keyDown("RAlt") or input.keyDown("LAlt")
 
     if input.bindDown("persona", "rotateReset") then
         persona_feature_dance.exit()
@@ -231,6 +231,8 @@ function update(dt, ...)
     if input.bindDown("persona", "stickToEntity") then
         stickToEntityActive = not stickToEntityActive
 
+        interface.queueMessage("Stick to entity: " .. (stickToEntityActive and "^green;Enabled^reset;" or "^red;Disabled^reset;"))
+
         if not stickToEntityActive then
             persona_feature_position.reset()
         end
@@ -238,6 +240,9 @@ function update(dt, ...)
 
     if input.bindDown("persona", "flight") then
         flightActive = not flightActive
+
+        interface.queueMessage("Flight mode: " .. (flightActive and "^green;Enabled^reset;" or "^red;Disabled^reset;"))
+
         if not flightActive then
             mcontroller.controlParameters({
                 gravityEnabled = true
@@ -251,6 +256,8 @@ function update(dt, ...)
     if input.bindDown("persona", "stickymotes") then
         persona_feature_stickymotes.reset()
         stickymotesActive = not stickymotesActive
+
+        interface.queueMessage("Stickymotes: " .. (stickymotesActive and "^green;Enabled^reset;" or "^red;Disabled^reset;"))
     end
 
     fastSelectActive = false

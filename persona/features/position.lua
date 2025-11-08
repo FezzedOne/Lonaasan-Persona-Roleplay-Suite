@@ -61,10 +61,14 @@ function persona_feature_position.flight(shift, alt)
 
     if alt then
         altControlsEnabled = not altControlsEnabled
+
+        interface.queueMessage("Mouse flight controls: " .. (altControlsEnabled and "^green;Enabled^reset;" or "^red;Disabled^reset;"))
     end
 
     if shift then
         colEnabled = not colEnabled
+
+        interface.queueMessage("Collision: " .. (colEnabled and "^green;Enabled^reset;" or "^red;Disabled^reset;"))
     end
 
     if altControlsEnabled then
