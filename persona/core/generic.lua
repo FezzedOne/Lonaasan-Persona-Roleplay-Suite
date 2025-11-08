@@ -251,6 +251,7 @@ function update(dt, ...)
     persona_feature_playerLog.update()
 
     if input.bindDown("persona", "test") then
+        player.interact("ScriptPane", "/interface/persona/techEquip/techEquip.config")
         player.dance("wave")
     end
 
