@@ -8,7 +8,7 @@ Persona is an RP (Roleplay) enhancement mod for Starbound, providing advanced pl
 
 ## Version Information
 
-- **Version:** 0.9.1
+- **Version:** 0.9.2
 - **Internal Name:** persona
 - **Priority:** 100
 - **Compatibility:** Multiplayer compatible

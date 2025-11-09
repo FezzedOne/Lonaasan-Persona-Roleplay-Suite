@@ -43,11 +43,12 @@ function persona_players.getInfo(entityId, zoom, client)
         -- local handItemDescription = world.entityHandItemDescriptor(entityId, "left")
         -- local handItemDescription2 = world.entityHandItemDescriptor(entityId, "right")
 
+        ----------- Advanced Info (needs entity table) -----------
+
         local isValidTarget
         local distanceToEntity
         local entityInSight
 
-        ----------- Advanced Info (needs entity table) -----------
         if os.__entity then
             isValidTarget = os.__entity.isValidTarget(entityId)
             distanceToEntity = os.__entity.distanceToEntity(entityId)
@@ -55,22 +56,22 @@ function persona_players.getInfo(entityId, zoom, client)
         end
 
         ----------- Advanced Info (needs oSB) -----------
-        local entity
-        local isInteractive
-        local currency
+        -- local entity
 
-        if client == "OpenStarbound" then
-            if os.__entity and world.entity then
-                
-            entity = world.entity(entityId)
-            -- local description = entity:description() or nil
-            isInteractive = entity:isInteractive() or nil
-            currency = entity:currency("money") or nil
-            -- local handItemDescriptor = entity:handItemDescriptor("primary") or nil
+        -- if client == "OpenStarbound" then
+        --     if os.__entity and world.entity then
+        --     entity = world.entity(entityId)
+        --     -- local description = entity:description() or nil
+        --     isInteractive = entity:isInteractive() or nil
+        --     currency = entity:currency("money") or nil
+        --     -- local handItemDescriptor = entity:handItemDescriptor("primary") or nil
+        --     -- persona_log.writeCustom("%s", handItemDescriptor)
+        --     end
+        -- end
 
-            -- persona_log.writeCustom("%s", handItemDescriptor)
-            end
-        end
+
+        local isInteractive = world.isEntityInteractive(entityId)
+        local currency = world.entityCurrency(entityId, "money")
 
         -------------- Vectors --------------
         local pos = world.entityPosition(entityId)
