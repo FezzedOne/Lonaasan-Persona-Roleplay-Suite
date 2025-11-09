@@ -1,45 +1,39 @@
-# Persona
+![Persona Logo](https://i.imgur.com/trYqCF4.png)
 
-> A comprehensive roleplay enhancement mod for Starbound
+# Persona Roleplay Suite - Vanilla Multiplayer compatible - Requires OpenStarbound
 
-## Overview
+This mod allows you more freedom of expression for your characters and some handy Tools for Roleplay Enviroments
 
-Persona is an RP (Roleplay) enhancement mod for Starbound, providing advanced player interaction features and a customizable UI for immersive gameplay.
+Current version on the workshop: 0.9.2 - First Steam Release: Patch 3
 
-## Version Information
+![How to use](https://i.imgur.com/mNxMSC6.png)
 
-- **Version:** 0.9.2
-- **Internal Name:** persona
-- **Priority:** 100
-- **Compatibility:** Multiplayer compatible
-- **Requirements:** OpenStarbound
+Set up your Persona Keybinds in the oSB Modbinds, equip the Persona Tech Grabber for some features (optional, Persona will not break without it), and.... done!
 
-## Feature Set
+![Current Features](https://i.imgur.com/YgdW3z2.png)
 
-### Core Features
+1. Stick to Entity
+2. PlayerRadar
+3. PlayerInfo on hover
+4. Character resizing
+5. Rotation controls
+6. FastWheel for quick selection of emotes / states / dances
+7. Toggleable pose states
+8. "Stickymotes"
+9. Flight with two modes: Playerkey controls for small adjustments or Mouse control or fast travelling
+10. Flight noclip
+11. PlayerLog: Logs players your character has met in the session
 
-- **Persona UI** - Custom interface for roleplay interactions
-- **Player TP** - Enhanced teleportation between players
-- **Particle FX** - Visual effects for roleplaying scenarios
+![Special Thanks / Snippet Sources](https://i.imgur.com/lMBuEb0.png)
 
-### Character Control
-- **Character Poses**
-  - Sitting positions
-  - Character resizing
-  - Rotation controls
-  - Character flipping
-  - Toggleable pose states
-  - "Stickymotes" feature
+Aisha Heartleigh, for contributing a big amount if helpful info and features, like "Stickymotes", Rotation controls, flight and parts of "Stick to entity"! And also helping to make some features more userfriendly and co-owner of this project.
 
-- **Player Anchor** - Position locking system
-- **Noclip / Flight** - Enhanced movement options
-- **Save Player Options** - Persistent configuration for player settings (size, etc.)
+Degranon, for allowing me to use his vehicle method for player dances!
 
-## Development Team
+Silverfeelin, for parts of the TechEquip pane logic licensed under MIT!
 
-- **Cirup**
-- **Lonaasan**
+And of course the general Starbound Community for providing help and feedback, thank you!
 
----
+----------
 
-*This documentation is for development purposes only*
+This mod will get feature updates and or patches from time to time, depending on my or aishas freetime. The current version is already almost everything we wanted, but small feature add-ons will still come out!
