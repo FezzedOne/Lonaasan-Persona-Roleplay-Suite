@@ -185,7 +185,7 @@ function persona_players.getInfo(entityId, zoom, client)
                 local entityPos = world.entityPosition(entityId)
 
                 persona_localanimation.displayLine(aimPos, entityPos, "cyan")
-                persona_localanimation.displayText({aimPos[1], aimPos[2]}, "^shadow;" .. name or "", 1 / zoom)
+                persona_localanimation.displayText({aimPos[1], aimPos[2]}, "^shadow;" .. (name or ""), 1 / zoom)
             end
         end
     end
