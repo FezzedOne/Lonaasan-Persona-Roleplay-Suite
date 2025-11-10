@@ -4,7 +4,7 @@
 
 This mod allows you more freedom of expression for your characters and some handy Tools for Roleplay Enviroments
 
-Current version on the workshop: 0.9.2 - First Steam Release: Patch 3
+Current version on the workshop: 0.9.4 - First Steam Release: Patch 4
 
 ![How to use](https://i.imgur.com/mNxMSC6.png)
 
@@ -22,7 +22,8 @@ Set up your Persona Keybinds in the oSB Modbinds, equip the Persona Tech Grabber
 8. "Stickymotes"
 9. Flight with two modes: Playerkey controls for small adjustments or Mouse control or fast travelling
 10. Flight noclip
-11. PlayerLog: Logs players your character has met in the session
+11. Teleport
+12. PlayerLog: Logs players your character has met in the session
 
 ![Special Thanks / Snippet Sources](https://i.imgur.com/lMBuEb0.png)
 

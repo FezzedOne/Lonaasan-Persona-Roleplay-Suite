@@ -20,6 +20,10 @@
                 "name": "Rotate to cursor",
                 "group" : "funcPos"
             },
+            "teleport": {
+                "name": "Teleport to cursor",
+                "group" : "funcPos"
+            },
             "stickToEntity": {
                 "name": "Stick to entity",
                 "group" : "funcPos"

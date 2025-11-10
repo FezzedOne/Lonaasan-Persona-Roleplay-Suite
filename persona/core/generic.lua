@@ -250,6 +250,10 @@ function update(dt, ...)
         end
     end
 
+    if input.bindDown("persona", "teleport") then
+        mcontroller.setPosition(player.aimPosition())
+    end
+
     if input.bindDown("persona", "playerRadar") then
         playerRadarActive = not playerRadarActive
     end
