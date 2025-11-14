@@ -71,4 +71,16 @@ function persona_feature_size.reset()
     })
 end
 
+function persona_feature_size.uninit()
+    if effects["personaSize"] then
+        status.removeEphemeralEffect("personaSize")
+    end
+    mcontroller.controlParameters({
+        standingPoly = {{-0.75, -2.0}, {-0.35, -2.5}, {0.35, -2.5}, {0.75, -2.0}, {0.75, 0.65}, {0.35, 1.22},
+                        {-0.35, 1.22}, {-0.75, 0.65}},
+        crouchingPoly = {{-0.75, -2.0}, {-0.35, -2.5}, {0.35, -2.5}, {0.75, -2.0}, {0.75, -1.0}, {0.35, -0.5},
+                         {-0.35, -0.5}, {-0.75, -1.0}}
+    })
+end
+
 string.persona.feature.size = persona_feature_size

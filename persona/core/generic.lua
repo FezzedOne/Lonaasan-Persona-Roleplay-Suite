@@ -356,6 +356,7 @@ function update(dt, ...)
 end
 
 function uninit(...)
+    persona_feature_size.uninit()
     persona_feature_playerLog.uninit()
     _uninit(...)
 end
