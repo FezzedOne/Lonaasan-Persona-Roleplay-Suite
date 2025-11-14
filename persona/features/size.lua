@@ -37,11 +37,13 @@ end
 
 function persona_feature_size.update()
     local effects = status.activeUniqueStatusEffectSummary()
-    if playerSize == 0 or not effects["personaSize"] then
-        playerSize = status.statusProperty("personaSize", 1) or 1
-        status.addEphemeralEffect("personaSize", math.huge)
+    if playerSize == 0 then
+        playerSize = status.statusProperty("personaSize", 1)
     end
     if playerSize ~= 1 then
+        if not effects["personaSize"] then
+            status.addEphemeralEffect("personaSize", math.huge)
+        end
         mcontroller.controlParameters({
             standingPoly = persona_math.scalePoly({{-0.75, -2.0}, {-0.35, -2.5}, {0.35, -2.5}, {0.75, -2.0},
                                                    {0.75, 0.65}, {0.35, 1.22}, {-0.35, 1.22}, {-0.75, 0.65}}, playerSize),
@@ -53,8 +55,10 @@ function persona_feature_size.update()
 end
 
 function persona_feature_size.reset()
-    playerSize = 1
-    status.setStatusProperty("personaSize", 1)
+    if effects["personaSize"] then
+        status.removeEphemeralEffect("personaSize")
+    end
+    playerSize = status.setStatusProperty("personaSize", 1)
     mcontroller.controlParameters({
         standingPoly = {{-0.75, -2.0}, {-0.35, -2.5}, {0.35, -2.5}, {0.75, -2.0}, {0.75, 0.65}, {0.35, 1.22},
                         {-0.35, 1.22}, {-0.75, 0.65}},
