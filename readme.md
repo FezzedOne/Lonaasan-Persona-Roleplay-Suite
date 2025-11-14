@@ -4,7 +4,7 @@
 
 This mod allows you more freedom of expression for your characters and some handy Tools for Roleplay Enviroments
 
-Current version on the workshop: 0.9.4 - First Steam Release: Patch 4
+Current version on the workshop: 0.9.5 - First Steam Release: Patch 4
 
 ![How to use](https://i.imgur.com/mNxMSC6.png)
 
