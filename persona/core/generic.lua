@@ -198,18 +198,15 @@ end
 
 function update(dt, ...)
 
-    if os.__localAnimator then
-        os.__localAnimator.clearDrawables()
-    end
 
     if os.__tech then
         optionTables = {emoteOptions, stateOptions, danceOptions1, danceOptions2} -- Update option tables if tech is present
     end
 
     local zoom = root.getConfigurationPath("zoomLevel") or 2
-    local shift = input.bind("persona", "shiftOverride") --input.key("RShift") or input.key("LShift")
-    local shiftDown = input.bindDown("persona", "shiftHoldOverride") --input.keyDown("RShift") or input.keyDown("LShift")
-    local alt = input.bindDown("persona", "altOverride") --input.keyDown("RAlt") or input.keyDown("LAlt")
+    local shift = input.bind("persona", "shiftOverride")
+    local shiftDown = input.bindDown("persona", "shiftHoldOverride")
+    local alt = input.bindDown("persona", "altOverride")
 
     if input.bindDown("persona", "rotateReset") then
         persona_feature_dance.exit()
