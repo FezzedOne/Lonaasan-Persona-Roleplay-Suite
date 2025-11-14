@@ -8,6 +8,7 @@ local _uninit = uninit or function()
 end;
 
 function init()
+    require "/persona/xsb/smuggling.lua"
     os.__tech = tech -- Getting tech to generic for module access
     _init()
 end

@@ -6,7 +6,7 @@ local _uninit = uninit or function()
 end;
 
 function init(...)
-
+    require "/persona/xsb/smuggling.lua"
     os.__localAnimator = localAnimator -- Getting localAnimator to generic for module access
     return _init(...)
 end

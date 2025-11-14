@@ -25,7 +25,7 @@ function persona_players.getInfo(entityId, zoom, client)
         return
     end
 
-    if client == "Vanilla" or client == "Neon" or client == "OpenStarbound" then
+    if client == "Vanilla" or client == "Neon" or client == "OpenStarbound" or client == "XStarbound" then
         -------------- Basic entity info --------------
         local uuid = world.entityUniqueId(entityId)
         local name = world.entityName(entityId)
@@ -180,7 +180,7 @@ function persona_players.getInfo(entityId, zoom, client)
                 persona_localanimation.displayLine(aimPos, entityPos, "cyan")
             end
 
-            if client == "OpenStarbound" and entityType == 'player' then
+            if (client == "OpenStarbound" or client == "XStarbound") and entityType == 'player' then
                 local aimPos = world.entityAimPosition(entityId)
                 local entityPos = world.entityPosition(entityId)
 
