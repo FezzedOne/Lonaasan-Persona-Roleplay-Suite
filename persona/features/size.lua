@@ -51,6 +51,10 @@ function persona_feature_size.update()
                                                     {0.75, -1.0}, {0.35, -0.5}, {-0.35, -0.5}, {-0.75, -1.0}},
                 playerSize)
         })
+    else
+        if effects["personaSize"] then
+            status.removeEphemeralEffect("personaSize") -- remove it here too if u are normal sized
+        end
     end
 end
 
