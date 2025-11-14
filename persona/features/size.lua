@@ -59,6 +59,7 @@ function persona_feature_size.update()
 end
 
 function persona_feature_size.reset()
+    local effects = status.activeUniqueStatusEffectSummary()
     if effects["personaSize"] then
         status.removeEphemeralEffect("personaSize")
     end
@@ -72,6 +73,7 @@ function persona_feature_size.reset()
 end
 
 function persona_feature_size.uninit()
+    local effects = status.activeUniqueStatusEffectSummary()
     if effects["personaSize"] then
         status.removeEphemeralEffect("personaSize")
     end
