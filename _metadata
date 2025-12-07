@@ -5,7 +5,7 @@
   "name" : "persona",
   "icon": "/persona/modicon.png",
   "priority" : 100,
-  "version" : "0.9.6"
+  "version" : "0.9.6.1"
 }
 
 
