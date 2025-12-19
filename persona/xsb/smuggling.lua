@@ -95,7 +95,7 @@ if xsb then
             local callbackKey = key
             return function(...)
                 local result = world
-                    .sendEntityMessage(world.mainPlayer(), "LonasaanPersona::Tech::callBinding", callbackKey, jsonPack(...))
+                    .sendEntityMessage(entity and entity.id() or world.mainPlayer(), "LonasaanPersona::Tech::callBinding", callbackKey, jsonPack(...))
                     :result()
                 if result then return jsonUnpack(result) end
             end
